@@ -1,4 +1,4 @@
-package cz.apigames.betterhud.plugin.Utils;
+package cz.apigames.betterhud.plugin.utils;
 
 import cz.apigames.betterhud.api.Utils.MessageUtils;
 import net.md_5.bungee.api.chat.ClickEvent;

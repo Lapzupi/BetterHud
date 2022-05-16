@@ -1,4 +1,4 @@
-package cz.apigames.betterhud.plugin.Utils;
+package cz.apigames.betterhud.plugin.utils;
 
 import cz.apigames.betterhud.BetterHud;
 import org.apache.commons.io.FileUtils;
@@ -13,23 +13,24 @@ import java.util.zip.ZipInputStream;
 public class TextureExtractor {
 
     public static boolean extract() throws IOException {
-
         CodeSource codeSource = BetterHud.class.getProtectionDomain().getCodeSource();
-        if (codeSource != null) {
-            ZipInputStream zipInputStream = new ZipInputStream(codeSource.getLocation().openStream());
-            ZipEntry zipEntry = zipInputStream.getNextEntry();
-            while (zipEntry != null) {
-                if (!zipEntry.isDirectory() && zipEntry.getName().startsWith("data/")) {
-                    File file = new File((BetterHud.getPlugin().getDataFolder().getParent() + "/ItemsAdder/" + zipEntry.getName()).replace("/", File.separator));
-                    if (!file.exists()) {
-                        FileUtils.copyInputStreamToFile(Objects.requireNonNull(BetterHud.getPlugin().getResource(zipEntry.getName())), file);
-                    }
+        if (codeSource == null)
+            return false;
+
+
+        ZipInputStream zipInputStream = new ZipInputStream(codeSource.getLocation().openStream());
+        ZipEntry zipEntry = zipInputStream.getNextEntry();
+        while (zipEntry != null) {
+            if (!zipEntry.isDirectory() && zipEntry.getName().startsWith("data/")) {
+                File file = new File((BetterHud.getPlugin().getDataFolder().getParent() + "/ItemsAdder/" + zipEntry.getName()).replace("/", File.separator));
+                if (!file.exists()) {
+                    FileUtils.copyInputStreamToFile(Objects.requireNonNull(BetterHud.getPlugin().getResource(zipEntry.getName())), file);
                 }
-                zipEntry = zipInputStream.getNextEntry();
             }
-            return true;
+            zipEntry = zipInputStream.getNextEntry();
         }
-        return false;
+        return true;
+
     }
 
 }

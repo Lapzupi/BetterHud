@@ -1,4 +1,4 @@
-package cz.apigames.betterhud.plugin.Utils;
+package cz.apigames.betterhud.plugin.utils;
 
 import cz.apigames.betterhud.BetterHud;
 import cz.apigames.betterhud.api.Utils.ExceptionListener;

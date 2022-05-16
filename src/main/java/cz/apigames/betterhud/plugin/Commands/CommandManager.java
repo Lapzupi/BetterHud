@@ -1,4 +1,4 @@
-package cz.apigames.betterhud.plugin.Commands;
+package cz.apigames.betterhud.plugin.commands;
 
 import cz.apigames.betterhud.BetterHud;
 import cz.apigames.betterhud.api.BetterHudAPI;
@@ -8,10 +8,10 @@ import cz.apigames.betterhud.api.Elements.Element;
 import cz.apigames.betterhud.api.Hud;
 import cz.apigames.betterhud.api.Utils.MessageUtils;
 import cz.apigames.betterhud.api.Utils.ToggleCommand;
-import cz.apigames.betterhud.plugin.Utils.ConfigManager;
-import cz.apigames.betterhud.plugin.Utils.FileUtils;
-import cz.apigames.betterhud.plugin.Utils.JsonMessage;
-import cz.apigames.betterhud.plugin.Utils.TextureExtractor;
+import cz.apigames.betterhud.plugin.utils.ConfigManager;
+import cz.apigames.betterhud.plugin.utils.FileUtils;
+import cz.apigames.betterhud.plugin.utils.JsonMessage;
+import cz.apigames.betterhud.plugin.utils.TextureExtractor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

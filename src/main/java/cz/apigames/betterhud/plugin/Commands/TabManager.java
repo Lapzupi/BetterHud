@@ -1,4 +1,4 @@
-package cz.apigames.betterhud.plugin.Commands;
+package cz.apigames.betterhud.plugin.commands;
 
 import cz.apigames.betterhud.BetterHud;
 import cz.apigames.betterhud.api.Elements.Element;
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class TabManager implements TabCompleter {
 

@@ -1,4 +1,4 @@
-package cz.apigames.betterhud.plugin.Utils;
+package cz.apigames.betterhud.plugin.utils;
 
 import cz.apigames.betterhud.BetterHud;
 import cz.apigames.betterhud.api.Utils.MessageUtils;
@@ -42,9 +42,10 @@ public class UpdateChecker implements Listener {
                 return;
             }
 
-            if(!BetterHud.getVersion().equalsIgnoreCase(latestVersion))
+            if(!BetterHud.getVersion().equalsIgnoreCase(latestVersion)) {
                 newUpdate = true;
                 return;
+            }
 
         } catch (IOException e) {
             BetterHud.error("Failed to check for the latest version!", e);
