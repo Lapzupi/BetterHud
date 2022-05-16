@@ -59,11 +59,11 @@ public abstract class Display {
     }
 
     public static List<Display> getDisplays(Player player) {
-        return displays.stream().filter(display -> display.getPlayer().equals(player)).collect(Collectors.toList());
+        return displays.stream().filter(display -> display.getPlayer().equals(player)).toList();
     }
 
     public static List<Display> getDisplays(Hud hud) {
-        return displays.stream().filter(display -> display.getHud().equals(hud)).collect(Collectors.toList());
+        return displays.stream().filter(display -> display.getHud().equals(hud)).toList();
     }
 
     public static List<Display> getDisplays(Player player, Hud hud) {
