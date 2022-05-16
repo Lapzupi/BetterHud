@@ -83,15 +83,15 @@ public class ConfigManager {
         Path tempFile = Paths.get("plugins/BetterHud/tmp-"+fileName);
         Files.createFile(tempFile);
 
-        InputStream inputStream = BetterHud.getPlugin().getResource(fileName);
-        byte[] buffer = new byte[inputStream.available()];
-        inputStream.read(buffer);
+        try(InputStream inputStream = BetterHud.getPlugin().getResource(fileName)) {
+            byte[] buffer = new byte[inputStream.available()];
+            inputStream.read(buffer);
 
-        OutputStream outStream = new FileOutputStream(tempFile.toFile());
-        outStream.write(buffer);
-        inputStream.close();
-        outStream.close();
+            try (OutputStream outStream = new FileOutputStream(tempFile.toFile())) {
+                outStream.write(buffer);
+            }
 
+        }
         return tempFile;
 
     }
