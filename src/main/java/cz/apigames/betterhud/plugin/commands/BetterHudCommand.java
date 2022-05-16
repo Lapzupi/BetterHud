@@ -145,4 +145,17 @@ public class BetterHudCommand extends BaseCommand {
             sender.sendMessage(BetterHud.getMessage("extract-textures-error"));
         }
     }
+
+    @Subcommand("test")
+    public void onTest(final Player player) {
+        if(!Display.getDisplays(player).isEmpty()) {
+            Display.getDisplays(player).forEach(display -> display.getHud().getElements().forEach(element -> {
+                player.sendMessage("-------------------------");
+                player.sendMessage("ElementName: "+element.getName());
+                player.sendMessage("X,Y: "+element.getX() + ";" + element.getY());
+                player.sendMessage("iX,iY: "+element.ix + ";" + element.iy);
+                player.sendMessage("width: "+element.calculateWidth(player));
+            }));
+        }
+    }
 }

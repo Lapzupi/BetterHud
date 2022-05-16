@@ -695,24 +695,7 @@ public class CommandManager implements CommandExecutor {
                     }
 
                 }
-                
-                //TEST
-                else if(args[0].equalsIgnoreCase("test")) {
 
-                    Player player = (Player) sender;
-                    if(!Display.getDisplays(player).isEmpty()) {
-                        Display.getDisplays(player).forEach(display -> {
-                            display.getHud().getElements().forEach(element -> {
-                                player.sendMessage("-------------------------");
-                                player.sendMessage("ElementName: "+element.getName());
-                                player.sendMessage("X,Y: "+element.getX() + ";" + element.getY());
-                                player.sendMessage("iX,iY: "+element.ix + ";" + element.iy);
-                                player.sendMessage("width: "+element.calculateWidth(player));
-                            });
-                        });
-                    }
-
-                }
 
                 //HELP
                 else if(args[0].equalsIgnoreCase("help")) {
