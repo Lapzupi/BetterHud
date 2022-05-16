@@ -18,19 +18,20 @@ public class TextureExtractor {
             return false;
 
 
-        ZipInputStream zipInputStream = new ZipInputStream(codeSource.getLocation().openStream());
-        ZipEntry zipEntry = zipInputStream.getNextEntry();
-        while (zipEntry != null) {
-            if (!zipEntry.isDirectory() && zipEntry.getName().startsWith("data/")) {
-                File file = new File((BetterHud.getPlugin().getDataFolder().getParent() + "/ItemsAdder/" + zipEntry.getName()).replace("/", File.separator));
-                if (!file.exists()) {
-                    FileUtils.copyInputStreamToFile(Objects.requireNonNull(BetterHud.getPlugin().getResource(zipEntry.getName())), file);
+        try (ZipInputStream zipInputStream = new ZipInputStream(codeSource.getLocation().openStream())) {
+            ZipEntry zipEntry = zipInputStream.getNextEntry();
+            while (zipEntry != null) {
+                if (!zipEntry.isDirectory() && zipEntry.getName().startsWith("data/")) {
+                    File file = new File((BetterHud.getPlugin().getDataFolder().getParent() + "/ItemsAdder/" + zipEntry.getName()).replace("/", File.separator));
+                    if (!file.exists()) {
+                        FileUtils.copyInputStreamToFile(Objects.requireNonNull(BetterHud.getPlugin().getResource(zipEntry.getName())), file);
+                    }
                 }
+                zipEntry = zipInputStream.getNextEntry();
             }
-            zipEntry = zipInputStream.getNextEntry();
         }
-        return true;
 
+        return true;
     }
 
 }
