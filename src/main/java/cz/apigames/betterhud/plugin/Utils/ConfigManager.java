@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class ConfigManager {
 
     private static BetterHud plugin = BetterHud.getPlugin();
-    private static HashMap<String, YamlConfiguration> configs = new HashMap<String, YamlConfiguration>() {
+    private static HashMap<String, YamlConfiguration> configs = new HashMap<>() {
     };
 
     public static void loadConfig(String configName) {
