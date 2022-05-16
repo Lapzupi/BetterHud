@@ -8,19 +8,21 @@ public enum Alignment {
 
     public static Alignment get(String str) {
 
-        if(str == null) {
+        if (str == null) {
             return Alignment.LEFT;
         }
 
-        if(str.equalsIgnoreCase("left")) {
-            return Alignment.LEFT;
-        } else if(str.equalsIgnoreCase("center")) {
-            return Alignment.CENTER;
-        } else if(str.equalsIgnoreCase("right")) {
-            return Alignment.RIGHT;
-        } else {
+        if (str.equalsIgnoreCase("left")) {
             return Alignment.LEFT;
         }
+        if (str.equalsIgnoreCase("center")) {
+            return Alignment.CENTER;
+        }
+        if (str.equalsIgnoreCase("right")) {
+            return Alignment.RIGHT;
+        }
+        return Alignment.LEFT;
+
 
     }
 
