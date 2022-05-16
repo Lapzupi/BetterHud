@@ -13,6 +13,9 @@
 
     <description>Addon for displaying custom hud in Minecraft!</description>
     <properties>
+        <sonar.organization>lapzupi</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
