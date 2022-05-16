@@ -7,8 +7,10 @@ import co.aikar.commands.annotation.Default;
 import co.aikar.commands.annotation.Subcommand;
 import cz.apigames.betterhud.BetterHud;
 import cz.apigames.betterhud.api.BetterHudAPI;
+import cz.apigames.betterhud.api.Hud;
 import cz.apigames.betterhud.api.displays.Display;
 import cz.apigames.betterhud.api.displays.DisplayType;
+import cz.apigames.betterhud.api.elements.Element;
 import cz.apigames.betterhud.api.utils.MessageUtils;
 import cz.apigames.betterhud.api.utils.ToggleCommand;
 import cz.apigames.betterhud.plugin.utils.ConfigManager;
@@ -45,7 +47,7 @@ public class BetterHudCommand extends BaseCommand {
         Display.getDisplays().forEach(display -> {
 
             HashMap<DisplayType, String> huds;
-            if(cachedActiveHuds.containsKey(display.getPlayer())) {
+            if (cachedActiveHuds.containsKey(display.getPlayer())) {
                 huds = cachedActiveHuds.get(display.getPlayer());
             } else {
                 huds = new HashMap<>();
@@ -70,7 +72,7 @@ public class BetterHudCommand extends BaseCommand {
         Future<Boolean> FontImageFiles_success = BetterHud.getAPI().generateFontImageFiles(new File(BetterHud.getPlugin().getDataFolder(), "characters.yml"), new File("plugins/ItemsAdder/data/items_packs/betterhud"));
 
         try {
-            if(FontImageFiles_success.get(5, TimeUnit.SECONDS)) {
+            if (FontImageFiles_success.get(5, TimeUnit.SECONDS)) {
 
                 //ASYNC
                 Bukkit.getScheduler().runTaskAsynchronously(BetterHud.getPlugin(), () -> {
@@ -78,12 +80,12 @@ public class BetterHudCommand extends BaseCommand {
                     boolean iaReload = false;
 
                     Set<String> updatedChecksums = new HashSet<>();
-                    for(File child : BetterHudAPI.getFontImagesDirectory().listFiles()) {
+                    for (File child : BetterHudAPI.getFontImagesDirectory().listFiles()) {
 
                         String checksum = FileUtils.checksum(child);
                         updatedChecksums.add(checksum);
 
-                        if(!BetterHud.checksums.contains(checksum)) {
+                        if (!BetterHud.checksums.contains(checksum)) {
                             iaReload = true;
                         }
 
@@ -91,7 +93,7 @@ public class BetterHudCommand extends BaseCommand {
                     BetterHud.checksums.clear();
                     BetterHud.checksums.addAll(updatedChecksums);
 
-                    if(iaReload) {
+                    if (iaReload) {
                         Bukkit.getScheduler().runTask(BetterHud.getPlugin(), () -> {
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "iazip");
                             sender.sendMessage(BetterHud.getMessage("reload-itemsadder"));
@@ -101,7 +103,7 @@ public class BetterHudCommand extends BaseCommand {
                     //SHOW ACTIVE DISPLAYS
                     cachedActiveHuds.forEach((player, huds) -> huds.forEach((displayType, s) -> {
 
-                        if(BetterHud.getAPI().hudExists(s)) {
+                        if (BetterHud.getAPI().hudExists(s)) {
                             Display.createDisplay(player, BetterHud.getAPI().getHud(s), displayType);
                         }
 
@@ -112,7 +114,7 @@ public class BetterHudCommand extends BaseCommand {
                 });
 
                 //ERROR MESSAGE
-                if(!errors.isEmpty()) {
+                if (!errors.isEmpty()) {
                     BetterHud.sendErrorToConsole("========================================");
                     BetterHud.sendErrorToConsole("BetterHud - Found configuration errors");
                     BetterHud.sendErrorToConsole(" ");
@@ -123,7 +125,7 @@ public class BetterHudCommand extends BaseCommand {
                     return;
                 }
 
-                sender.sendMessage(BetterHud.getMessage("reload-successful").replace("{time}", String.valueOf(System.currentTimeMillis()-time)));
+                sender.sendMessage(BetterHud.getMessage("reload-successful").replace("{time}", String.valueOf(System.currentTimeMillis() - time)));
 
             }
         } catch (InterruptedException | ExecutionException e) {
@@ -139,7 +141,7 @@ public class BetterHudCommand extends BaseCommand {
     @CommandPermission("betterhud.command.extracttextures")
     public void onExtractTextures(final CommandSender sender) {
         try {
-            if(TextureExtractor.extract()) {
+            if (TextureExtractor.extract()) {
                 sender.sendMessage(BetterHud.getMessage("extract-textures-success"));
             } else {
                 sender.sendMessage(BetterHud.getMessage("extract-textures-error"));
@@ -152,13 +154,13 @@ public class BetterHudCommand extends BaseCommand {
 
     @Subcommand("test")
     public void onTest(final Player player) {
-        if(!Display.getDisplays(player).isEmpty()) {
+        if (!Display.getDisplays(player).isEmpty()) {
             Display.getDisplays(player).forEach(display -> display.getHud().getElements().forEach(element -> {
                 player.sendMessage("-------------------------");
-                player.sendMessage("ElementName: "+element.getName());
-                player.sendMessage("X,Y: "+element.getX() + ";" + element.getY());
-                player.sendMessage("iX,iY: "+element.ix + ";" + element.iy);
-                player.sendMessage("width: "+element.calculateWidth(player));
+                player.sendMessage("ElementName: " + element.getName());
+                player.sendMessage("X,Y: " + element.getX() + ";" + element.getY());
+                player.sendMessage("iX,iY: " + element.ix + ";" + element.iy);
+                player.sendMessage("width: " + element.calculateWidth(player));
             }));
         }
     }
@@ -168,7 +170,7 @@ public class BetterHudCommand extends BaseCommand {
 
     }
 
-    public void onHide(){
+    public void onHide() {
 
     }
 
@@ -190,32 +192,50 @@ public class BetterHudCommand extends BaseCommand {
 
     }
 
-    public void onHideElement(){
+    public void onHideElement() {
 
     }
 
-    public void onSetX() {
+    @Subcommand("setX")
+    @CommandPermission("betterhud.command.setx")
+    public void onSetX(final CommandSender sender, final String hudId, final String elementId, final int value) {
+        if (!BetterHud.getAPI().hudExists(hudId)) {
+            sender.sendMessage(BetterHud.getMessage("unknown-hud"));
+            return;
+        }
 
+
+        Hud hud = BetterHud.getAPI().getHud(hudId);
+        if (!hud.getElement(elementId).isPresent()) {
+            sender.sendMessage(BetterHud.getMessage("unknown-element"));
+            return;
+        }
+
+        Element element = hud.getElement(elementId).get();
+        element.setX(value);
+        sender.sendMessage(BetterHud.getMessage("set-x")
+                .replace("{element}", element.getName())
+                .replace("{value}", String.valueOf(value)));
     }
 
     @Default
     @Subcommand("help")
     public void onHelp(final @NotNull CommandSender sender) {
-        sender.sendMessage(MessageUtils.colorize("&6&lBetterHud &f&lv"+ BetterHud.getVersion() + " &7&o(( By ApiGames ))"));
+        sender.sendMessage(MessageUtils.colorize("&6&lBetterHud &f&lv" + BetterHud.getVersion() + " &7&o(( By ApiGames ))"));
         sender.sendMessage(" ");
 
-        if(sender instanceof Player player) {
-            JsonMessage.sendMessage(player, "/bh show","&8- &e/bh show (player/all) (hud) (display)", "&bShow the hud for the player\n\n&7Permission: &ebetterhud.command.show\n\n&f&lEXAMPLES:\n&a/bh show ApiGames example_hud ACTIONBAR");
-            JsonMessage.sendMessage(player,"/bh hide" ,"&8- &e/bh hide (player/all) (hud)", "&bHide the hud from the player\n\n&7Permission: &ebetterhud.command.hide\n\n&f&lEXAMPLES:\n&a/bh hide ApiGames example_hud");
-            JsonMessage.sendMessage(player,"/bh setValue","&8- &e/bh setValue (player/all) (hud) (element) (value)", "&bChange displayed value\n\n&7Permission: &ebetterhud.command.setvalue\n\n&f&lEXAMPLES:\n&a/bh setValue ApiGames example_hud example_text TEST123");
-            JsonMessage.sendMessage(player, "/bh getValue","&8- &e/bh getValue (player) (hud) (element)", "&bGet the per-player value of the element\n\n&7Permission: &ebetterhud.command.getvalue\n\n&f&lEXAMPLES:\n&a/bh getValue ApiGames example_hud example_text");
-            JsonMessage.sendMessage(player, "/bh resetValue","&8- &e/bh resetValue (player/all) (hud) (element)", "&bReset the per-player value\n\n&7Permission: &ebetterhud.command.resetvalue\n\n&f&lEXAMPLES:\n&a/bh resetValue ApiGames example_hud");
-            JsonMessage.sendMessage(player, "/bh showElement","&8- &e/bh showElement (player/all) (hud) (element)", "&bShow the element for the player\n\n&7Permission: &ebetterhud.command.showelement\n\n&f&lEXAMPLES:\n&a/bh showElement ApiGames example_hud example_text");
-            JsonMessage.sendMessage(player, "/bh hideElement","&8- &e/bh hideElement (player/all) (hud) (element)", "&bHide the element from the player\n\n&7Permission: &ebetterhud.command.hideelement\n\n&f&lEXAMPLES:\n&a/bh hideElement ApiGames example_hud example_text");
-            JsonMessage.sendMessage(player, "/bh setX","&8- &e/bh setX (hud) (element) (value)", "&bSet x-coordinate of element\n\n&7Permission: &ebetterhud.command.setx\n\n&f&lEXAMPLES:\n&a/bh setX example_hud example_text 120");
-            JsonMessage.sendMessage(player, "/bh reload","&8- &e/bh reload", "&bReload the plugin\n\n&7Permission: &ebetterhud.command.reload");
-            JsonMessage.sendMessage(player, "/bh report-bug","&8- &e/bh report-bug", "&bGenerate report log\n\n&7Permission: &ebetterhud.command.report-bug");
-            JsonMessage.sendMessage(player, "/bh extractTextures","&8- &e/bh extractTextures", "&bExtract default BetterHud textures\n\n&7Permission: &ebetterhud.command.extracttextures");
+        if (sender instanceof Player player) {
+            JsonMessage.sendMessage(player, "/bh show", "&8- &e/bh show (player/all) (hud) (display)", "&bShow the hud for the player\n\n&7Permission: &ebetterhud.command.show\n\n&f&lEXAMPLES:\n&a/bh show ApiGames example_hud ACTIONBAR");
+            JsonMessage.sendMessage(player, "/bh hide", "&8- &e/bh hide (player/all) (hud)", "&bHide the hud from the player\n\n&7Permission: &ebetterhud.command.hide\n\n&f&lEXAMPLES:\n&a/bh hide ApiGames example_hud");
+            JsonMessage.sendMessage(player, "/bh setValue", "&8- &e/bh setValue (player/all) (hud) (element) (value)", "&bChange displayed value\n\n&7Permission: &ebetterhud.command.setvalue\n\n&f&lEXAMPLES:\n&a/bh setValue ApiGames example_hud example_text TEST123");
+            JsonMessage.sendMessage(player, "/bh getValue", "&8- &e/bh getValue (player) (hud) (element)", "&bGet the per-player value of the element\n\n&7Permission: &ebetterhud.command.getvalue\n\n&f&lEXAMPLES:\n&a/bh getValue ApiGames example_hud example_text");
+            JsonMessage.sendMessage(player, "/bh resetValue", "&8- &e/bh resetValue (player/all) (hud) (element)", "&bReset the per-player value\n\n&7Permission: &ebetterhud.command.resetvalue\n\n&f&lEXAMPLES:\n&a/bh resetValue ApiGames example_hud");
+            JsonMessage.sendMessage(player, "/bh showElement", "&8- &e/bh showElement (player/all) (hud) (element)", "&bShow the element for the player\n\n&7Permission: &ebetterhud.command.showelement\n\n&f&lEXAMPLES:\n&a/bh showElement ApiGames example_hud example_text");
+            JsonMessage.sendMessage(player, "/bh hideElement", "&8- &e/bh hideElement (player/all) (hud) (element)", "&bHide the element from the player\n\n&7Permission: &ebetterhud.command.hideelement\n\n&f&lEXAMPLES:\n&a/bh hideElement ApiGames example_hud example_text");
+            JsonMessage.sendMessage(player, "/bh setX", "&8- &e/bh setX (hud) (element) (value)", "&bSet x-coordinate of element\n\n&7Permission: &ebetterhud.command.setx\n\n&f&lEXAMPLES:\n&a/bh setX example_hud example_text 120");
+            JsonMessage.sendMessage(player, "/bh reload", "&8- &e/bh reload", "&bReload the plugin\n\n&7Permission: &ebetterhud.command.reload");
+            JsonMessage.sendMessage(player, "/bh report-bug", "&8- &e/bh report-bug", "&bGenerate report log\n\n&7Permission: &ebetterhud.command.report-bug");
+            JsonMessage.sendMessage(player, "/bh extractTextures", "&8- &e/bh extractTextures", "&bExtract default BetterHud textures\n\n&7Permission: &ebetterhud.command.extracttextures");
             sender.sendMessage(" ");
             sender.sendMessage(MessageUtils.colorize("&eTIP &8» &fTry &ahovering &fover the command to see more info and examples!"));
 
