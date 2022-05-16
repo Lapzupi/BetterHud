@@ -696,28 +696,6 @@ public class CommandManager implements CommandExecutor {
 
                 }
                 
-                //EXPORT TEXTURES
-                else if(args[0].equalsIgnoreCase("extractTextures")) {
-
-                    if(sender.hasPermission("betterhud.command.extracttextures")) {
-
-                        try {
-                            if(TextureExtractor.extract()) {
-                                sender.sendMessage(BetterHud.getMessage("extract-textures-success"));
-                            } else {
-                                sender.sendMessage(BetterHud.getMessage("extract-textures-error"));
-                            }
-                        } catch (IOException e) {
-                            BetterHud.error("Failed to extract textures from JAR file!", e);
-                            sender.sendMessage(BetterHud.getMessage("extract-textures-error"));
-                        }
-
-                    } else {
-                        sender.sendMessage(BetterHud.getMessage("no-permission"));
-                    }
-
-                }
-
                 //TEST
                 else if(args[0].equalsIgnoreCase("test")) {
 

@@ -11,11 +11,13 @@ import cz.apigames.betterhud.api.displays.DisplayType;
 import cz.apigames.betterhud.api.utils.ToggleCommand;
 import cz.apigames.betterhud.plugin.utils.ConfigManager;
 import cz.apigames.betterhud.plugin.utils.FileUtils;
+import cz.apigames.betterhud.plugin.utils.TextureExtractor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -126,6 +128,21 @@ public class BetterHudCommand extends BaseCommand {
         } catch (TimeoutException e) {
             BetterHud.error("FontImage files generation took too long! Reload task was terminated to keep thread safe.", e);
             sender.sendMessage(BetterHud.getMessage("reload-error"));
+        }
+    }
+
+    @Subcommand("extractTextures")
+    @CommandPermission("betterhud.command.extracttextures")
+    public void onExtractTextures(final CommandSender sender) {
+        try {
+            if(TextureExtractor.extract()) {
+                sender.sendMessage(BetterHud.getMessage("extract-textures-success"));
+            } else {
+                sender.sendMessage(BetterHud.getMessage("extract-textures-error"));
+            }
+        } catch (IOException e) {
+            BetterHud.error("Failed to extract textures from JAR file!", e);
+            sender.sendMessage(BetterHud.getMessage("extract-textures-error"));
         }
     }
 }
