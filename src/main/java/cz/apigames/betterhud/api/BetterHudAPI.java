@@ -1,10 +1,10 @@
 package cz.apigames.betterhud.api;
 
-import cz.apigames.betterhud.api.Displays.Display;
-import cz.apigames.betterhud.api.Displays.DisplayType;
-import cz.apigames.betterhud.api.Elements.*;
-import cz.apigames.betterhud.api.Utils.*;
-import cz.apigames.betterhud.api.Utils.Listeners.ListenerRegister;
+import cz.apigames.betterhud.api.displays.Display;
+import cz.apigames.betterhud.api.displays.DisplayType;
+import cz.apigames.betterhud.api.elements.*;
+import cz.apigames.betterhud.api.utils.*;
+import cz.apigames.betterhud.api.utils.listeners.ListenerRegister;
 import dev.lone.itemsadder.api.FontImages.FontImageWrapper;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;

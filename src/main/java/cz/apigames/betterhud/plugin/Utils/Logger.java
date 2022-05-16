@@ -1,7 +1,7 @@
 package cz.apigames.betterhud.plugin.utils;
 
 import cz.apigames.betterhud.BetterHud;
-import cz.apigames.betterhud.api.Utils.MessageUtils;
+import cz.apigames.betterhud.api.utils.MessageUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
