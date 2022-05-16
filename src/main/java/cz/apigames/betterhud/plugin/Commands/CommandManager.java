@@ -695,14 +695,7 @@ public class CommandManager implements CommandExecutor {
                     }
 
                 }
-
-
-                //HELP
-                else if(args[0].equalsIgnoreCase("help")) {
-                    help(sender);
-                } else {
-                    help(sender);
-                }
+                
 
             } else {
                 help(sender);
