@@ -1,7 +1,7 @@
 name: BetterHud
 version: ${project.version}
 main: cz.apigames.betterhud.BetterHud
-api-version: 1.14
+api-version: 1.18
 depend: [ItemsAdder]
 authors: [ApiGames]
 description: Addon for displaying custom hud in Minecraft!
