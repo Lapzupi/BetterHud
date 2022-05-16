@@ -4,6 +4,7 @@ import cz.apigames.betterhud.api.BetterHudAPI;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Locale;
@@ -15,7 +16,7 @@ public class MessageUtils {
     private static final Pattern legacyPattern = Pattern.compile("&[0-9a-fk-or]");
     private static final Pattern hexPattern = Pattern.compile("(?<!\\\\)(\\{#[a-fA-F0-9]{6}})");
 
-    public static String colorize(String message) {
+    public static @NotNull String colorize(String message) {
         if(BetterHudAPI.isHexSupported()) {
             Matcher matcher = hexPattern.matcher(message);
 
@@ -63,19 +64,19 @@ public class MessageUtils {
         return message;
     }
 
-    public static boolean isLegacyColorCode(String message, int index) {
+    public static boolean isLegacyColorCode(@NotNull String message, int index) {
         String colorCode = message.substring(index, index+2);
         Matcher matcher = legacyPattern.matcher(colorCode);
         return matcher.find();
     }
 
-    public static boolean isHexColorCode(String message, int index) {
+    public static boolean isHexColorCode(@NotNull String message, int index) {
         String colorCode = message.substring(index, index+9);
         Matcher matcher = hexPattern.matcher(colorCode);
         return matcher.find();
     }
 
-    public static String getCharNameFromPath(String path) {
+    public static String getCharNameFromPath(@NotNull String path) {
 
         String[] split = path.split("/");
 
@@ -83,7 +84,7 @@ public class MessageUtils {
 
     }
 
-    public static String stripColors(String str) {
+    public static @NotNull String stripColors(String str) {
 
         str = str.replaceAll("&[0-9a-fk-or]", "");
         str = str.replaceAll("(?<!\\\\)(\\{#[a-fA-F0-9]{6}})", "");
@@ -92,7 +93,7 @@ public class MessageUtils {
 
     }
 
-    public static String getRawMessage(String str) {
+    public static @NotNull String getRawMessage(String str) {
 
         str = str.replaceAll("%(\\S*?)%", "");
         str = str.replaceAll("\\{(\\S*?)}", "");
@@ -102,7 +103,7 @@ public class MessageUtils {
         return str;
     }
 
-    public static String enumToName(String enumValue) {
+    public static @NotNull String enumToName(@NotNull String enumValue) {
         return enumValue.charAt(0) + enumValue.substring(1).toLowerCase(Locale.ROOT);
     }
 

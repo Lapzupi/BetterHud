@@ -13,25 +13,25 @@ public class ToggleEvent {
     @NotNull(message = "Display is not valid or is null.")
     protected DisplayType displayType;
 
-    protected String opt_value;
+    protected String optValue;
 
     @Min(message = "Value 'hide_after' must be a positive number", value = 0)
-    protected int hide_after;
+    protected int hideAfter;
 
     /**
      * Constructs a ToggleEvent with the given eventType and displayType
      *
      * @param eventType the type of the event
      * @param displayType the display type which will be used for displaying hud
-     * @param hide_after time in seconds when the hud will disappear (0 = never)
+     * @param hideAfter time in seconds when the hud will disappear (0 = never)
      *
      * @see EventType the list of valid event types
      */
-    public ToggleEvent(EventType eventType, DisplayType displayType, int hide_after) {
+    public ToggleEvent(EventType eventType, DisplayType displayType, int hideAfter) {
 
         this.eventType = eventType;
         this.displayType = displayType;
-        this.hide_after = hide_after;
+        this.hideAfter = hideAfter;
 
     }
 
@@ -41,16 +41,16 @@ public class ToggleEvent {
      * @param eventType the type of the event
      * @param displayType the display type which will be used for displaying hud
      * @param value optional value that is needed for event types: COMMAND, GAMEMODE_CHANGE
-     * @param hide_after time in seconds when the hud will disappear (0 = never)
+     * @param hideAfter time in seconds when the hud will disappear (0 = never)
      *
      * @see EventType the list of valid event types
      */
-    public ToggleEvent(EventType eventType, DisplayType displayType, String value, int hide_after) {
+    public ToggleEvent(EventType eventType, DisplayType displayType, String value, int hideAfter) {
 
         this.eventType = eventType;
         this.displayType = displayType;
-        this.hide_after = hide_after;
-        this.opt_value = value;
+        this.hideAfter = hideAfter;
+        this.optValue = value;
 
     }
 
@@ -62,12 +62,12 @@ public class ToggleEvent {
         return eventType;
     }
 
-    public String getOpt_value() {
-        return opt_value;
+    public String getOptValue() {
+        return optValue;
     }
 
     public int getHideAfter() {
-        return hide_after;
+        return hideAfter;
     }
 
     public enum EventType {

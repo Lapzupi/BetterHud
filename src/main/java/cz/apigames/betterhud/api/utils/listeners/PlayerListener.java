@@ -213,7 +213,7 @@ public class PlayerListener implements Listener {
 
             if(optEvent.isPresent()) {
 
-                if(optEvent.get().getOpt_value() != null) {
+                if(optEvent.get().getOptValue() != null) {
 
                     //PLACEHOLDERS
                     BetterHudAPI.clearPlaceholders(event.getPlayer());
@@ -223,12 +223,12 @@ public class PlayerListener implements Listener {
                     ));
 
                     //TO
-                    if(event.getNewGameMode().name().equalsIgnoreCase(optEvent.get().getOpt_value())) {
+                    if(event.getNewGameMode().name().equalsIgnoreCase(optEvent.get().getOptValue())) {
                         hud.renderFor(event.getPlayer(), optEvent.get().getDisplayType(), optEvent.get().getHideAfter(), true);
                     }
 
                     //FROM
-                    else if(event.getPlayer().getGameMode().name().equalsIgnoreCase(optEvent.get().getOpt_value())) {
+                    else if(event.getPlayer().getGameMode().name().equalsIgnoreCase(optEvent.get().getOptValue())) {
                         hud.hide(event.getPlayer());
                     }
                 }

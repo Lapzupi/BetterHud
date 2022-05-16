@@ -1,6 +1,7 @@
 package cz.apigames.betterhud.api.utils;
 
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.Set;
@@ -14,7 +15,7 @@ public class Condition {
         this.condition = condition;
     }
 
-    public static boolean checkFor(Player player, Set<Condition> conditionSet) throws NumberFormatException {
+    public static boolean checkFor(Player player, @NotNull Set<Condition> conditionSet) throws NumberFormatException {
 
         for(Condition cond : conditionSet) {
 
@@ -31,7 +32,9 @@ public class Condition {
         //PERMISSION
         if(condition.contains("perm=")) {
             return player.hasPermission(condition.split("perm=")[1]);
-        } else if(condition.contains("compare=")) {
+        }
+
+        if(condition.contains("compare=")) {
 
             String compare = condition.split("compare=")[1];
             try {

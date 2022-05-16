@@ -31,7 +31,7 @@ public class ToggleCommand extends BukkitCommand {
             Player player = (Player) commandSender;
             BetterHudAPI.getLoadedHuds().forEach(hud -> {
 
-                Optional<ToggleEvent> optEvent = hud.getEvents().stream().filter(toggleEvent -> toggleEvent.getEventType().equals(ToggleEvent.EventType.COMMAND) && toggleEvent.getOpt_value().equalsIgnoreCase(s)).findFirst();
+                Optional<ToggleEvent> optEvent = hud.getEvents().stream().filter(toggleEvent -> toggleEvent.getEventType().equals(ToggleEvent.EventType.COMMAND) && toggleEvent.getOptValue().equalsIgnoreCase(s)).findFirst();
 
                 optEvent.ifPresent(toggleEvent -> {
 
@@ -89,7 +89,7 @@ public class ToggleCommand extends BukkitCommand {
     public static void registerCommands() {
         BetterHudAPI.getLoadedHuds().forEach(hud -> hud.getEvents().forEach(toggleEvent -> {
             if(toggleEvent.getEventType().equals(ToggleEvent.EventType.COMMAND)) {
-                registerCommand(toggleEvent.getOpt_value());
+                registerCommand(toggleEvent.getOptValue());
             }
         }));
     }
@@ -97,7 +97,7 @@ public class ToggleCommand extends BukkitCommand {
     public static void unregisterCommands() {
         BetterHudAPI.getLoadedHuds().forEach(hud -> hud.getEvents().forEach(toggleEvent -> {
             if(toggleEvent.getEventType().equals(ToggleEvent.EventType.COMMAND)) {
-                unregisterCommand(toggleEvent.getOpt_value());
+                unregisterCommand(toggleEvent.getOptValue());
             }
         }));
     }

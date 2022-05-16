@@ -37,7 +37,8 @@ public abstract class Element {
     protected HashMap<Player, String> values;
     protected Set<Condition> conditions = new HashSet<>();
 
-    public int ix, iy; //INTERNAL USE ONLY
+    public int ix; //INTERNAL USE ONLY todo (internal? Why is it public!)
+    public int iy; //INTERNAL USE ONLY todo (internal? Why is it public!)
 
     /**
      * Constructs an element at the given coordinates with the given scale

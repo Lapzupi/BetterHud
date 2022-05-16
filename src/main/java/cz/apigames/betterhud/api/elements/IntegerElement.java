@@ -40,7 +40,7 @@ public class IntegerElement extends Element {
 
         int charCount = 0;
         int whitespace = 0;
-        List<Character> chars = message.chars().mapToObj(e -> (char)e).collect(Collectors.toList());
+        List<Character> chars = message.chars().mapToObj(e -> (char) e).toList();
         for(int i=0; i<chars.size(); i++) {
 
             //COLOR HANDLING

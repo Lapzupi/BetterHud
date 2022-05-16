@@ -1,5 +1,8 @@
 package cz.apigames.betterhud.api.utils;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +32,8 @@ public class Placeholder {
         return message;
     }
 
-    public static List<String> replacePlaceholders(List<Placeholder> placeholderList, List<String> message) {
+    @Contract("_, _ -> param2")
+    public static @NotNull List<String> replacePlaceholders(List<Placeholder> placeholderList, List<String> message) {
 
         List<String> copy = new ArrayList<>(message);
         message.clear();
