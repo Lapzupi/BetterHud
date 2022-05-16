@@ -13,8 +13,20 @@
 
     <description>Addon for displaying custom hud in Minecraft!</description>
     <properties>
-        <java.version>16</java.version>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Maven Plugins -->
+        <maven.shade.version>3.3.0</maven.shade.version>
+        <maven.compiler.version>3.10.0</maven.compiler.version>
+
+        <spigot.version>1.18.1-R0.1-SNAPSHOT</spigot.version>
+        <itemsadder.version>3.1.0b</itemsadder.version>
+        <placeholderapi.version>2.11.1</placeholderapi.version>
+        <commons.io.version>2.11.0</commons.io.version>
+        <validation.api.version>2.0.1.Final</validation.api.version>
+        <hibernate.validation.version>7.0.4.Final</hibernate.validation.version>
+        <javax.el.version>3.0.0</javax.el.version>
     </properties>
 
     <build>
@@ -22,7 +34,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>${maven.compiler.version}</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -31,7 +43,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
+                <version>${maven.shade.version}</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -80,43 +92,43 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.17.1-R0.1-SNAPSHOT</version>
+            <version>${spigot.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.github.LoneDev6</groupId>
             <artifactId>api-itemsadder</artifactId>
-            <version>2.3.8</version>
+            <version>${itemsadder.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>me.clip</groupId>
             <artifactId>placeholderapi</artifactId>
-            <version>2.10.10</version>
+            <version>${placeholderapi.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.11.0</version>
+            <version>${commons.io.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>2.0.1.Final</version>
+            <version>${validation.api.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>6.0.13.Final</version>
+            <version>${hibernate.validation.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.el</artifactId>
-            <version>3.0.0</version>
+            <version>${javax.el.version}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
