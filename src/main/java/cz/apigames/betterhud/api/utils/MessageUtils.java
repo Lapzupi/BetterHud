@@ -1,4 +1,4 @@
-package cz.apigames.betterhud.api.Utils;
+package cz.apigames.betterhud.api.utils;
 
 import cz.apigames.betterhud.api.BetterHudAPI;
 import me.clip.placeholderapi.PlaceholderAPI;

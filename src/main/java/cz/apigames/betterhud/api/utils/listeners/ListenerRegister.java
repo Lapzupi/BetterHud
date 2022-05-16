@@ -1,4 +1,4 @@
-package cz.apigames.betterhud.api.Utils.Listeners;
+package cz.apigames.betterhud.api.utils.listeners;
 
 import cz.apigames.betterhud.api.BetterHudAPI;
 import org.bukkit.Bukkit;

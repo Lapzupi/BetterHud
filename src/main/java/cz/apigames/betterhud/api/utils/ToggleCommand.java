@@ -1,6 +1,5 @@
-package cz.apigames.betterhud.api.Utils;
+package cz.apigames.betterhud.api.utils;
 
-import cz.apigames.betterhud.BetterHud;
 import cz.apigames.betterhud.api.BetterHudAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;

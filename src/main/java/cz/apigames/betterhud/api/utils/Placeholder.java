@@ -1,6 +1,4 @@
-package cz.apigames.betterhud.api.Utils;
-
-import org.bukkit.Bukkit;
+package cz.apigames.betterhud.api.utils;
 
 import java.util.ArrayList;
 import java.util.List;

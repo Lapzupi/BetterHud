@@ -1,11 +1,10 @@
-package cz.apigames.betterhud.api.Utils.Listeners;
+package cz.apigames.betterhud.api.utils.listeners;
 
 import cz.apigames.betterhud.api.BetterHudAPI;
-import cz.apigames.betterhud.api.Displays.Display;
-import cz.apigames.betterhud.api.Utils.MessageUtils;
-import cz.apigames.betterhud.api.Utils.Placeholder;
-import cz.apigames.betterhud.api.Utils.ToggleEvent;
-import net.md_5.bungee.api.chat.hover.content.Entity;
+import cz.apigames.betterhud.api.displays.Display;
+import cz.apigames.betterhud.api.utils.MessageUtils;
+import cz.apigames.betterhud.api.utils.Placeholder;
+import cz.apigames.betterhud.api.utils.ToggleEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;

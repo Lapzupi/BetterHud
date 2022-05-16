@@ -1,4 +1,4 @@
-package cz.apigames.betterhud.api.Displays;
+package cz.apigames.betterhud.api.displays;
 
 public enum DisplayType {
 

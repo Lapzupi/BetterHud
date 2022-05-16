@@ -1,4 +1,4 @@
-package cz.apigames.betterhud.api.Displays;
+package cz.apigames.betterhud.api.displays;
 
 import cz.apigames.betterhud.api.BetterHudAPI;
 import cz.apigames.betterhud.api.Hud;

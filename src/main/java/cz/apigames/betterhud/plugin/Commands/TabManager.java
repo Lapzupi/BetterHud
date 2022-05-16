@@ -1,7 +1,7 @@
 package cz.apigames.betterhud.plugin.commands;
 
 import cz.apigames.betterhud.BetterHud;
-import cz.apigames.betterhud.api.Elements.Element;
+import cz.apigames.betterhud.api.elements.Element;
 import cz.apigames.betterhud.api.Hud;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

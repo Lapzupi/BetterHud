@@ -1,4 +1,4 @@
-package cz.apigames.betterhud.api.Elements;
+package cz.apigames.betterhud.api.elements;
 
 public enum Alignment {
 

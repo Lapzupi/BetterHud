@@ -1,6 +1,5 @@
-package cz.apigames.betterhud.api.Utils;
+package cz.apigames.betterhud.api.utils;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import javax.validation.constraints.NotEmpty;

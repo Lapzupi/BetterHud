@@ -1,6 +1,6 @@
-package cz.apigames.betterhud.api.Utils;
+package cz.apigames.betterhud.api.utils;
 
-import cz.apigames.betterhud.api.Displays.DisplayType;
+import cz.apigames.betterhud.api.displays.DisplayType;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;

@@ -1,7 +1,7 @@
-package cz.apigames.betterhud.api.Utils.Listeners;
+package cz.apigames.betterhud.api.utils.listeners;
 
 import cz.apigames.betterhud.api.BetterHudAPI;
-import cz.apigames.betterhud.api.Elements.ImageElement;
+import cz.apigames.betterhud.api.elements.ImageElement;
 import dev.lone.itemsadder.api.Events.ItemsAdderLoadDataEvent;
 import dev.lone.itemsadder.api.FontImages.FontImageWrapper;
 import org.bukkit.configuration.file.YamlConfiguration;

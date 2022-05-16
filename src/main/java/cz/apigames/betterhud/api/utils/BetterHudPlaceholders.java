@@ -1,4 +1,4 @@
-package cz.apigames.betterhud.api.Utils;
+package cz.apigames.betterhud.api.utils;
 
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;

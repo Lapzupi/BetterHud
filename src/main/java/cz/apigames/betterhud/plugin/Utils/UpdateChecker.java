@@ -1,7 +1,7 @@
 package cz.apigames.betterhud.plugin.utils;
 
 import cz.apigames.betterhud.BetterHud;
-import cz.apigames.betterhud.api.Utils.MessageUtils;
+import cz.apigames.betterhud.api.utils.MessageUtils;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;

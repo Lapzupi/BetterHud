@@ -1,8 +1,8 @@
-package cz.apigames.betterhud.api.Elements;
+package cz.apigames.betterhud.api.elements;
 
 import cz.apigames.betterhud.api.BetterHudAPI;
-import cz.apigames.betterhud.api.Utils.Condition;
-import cz.apigames.betterhud.api.Utils.MessageUtils;
+import cz.apigames.betterhud.api.utils.Condition;
+import cz.apigames.betterhud.api.utils.MessageUtils;
 import dev.lone.itemsadder.api.FontImages.FontImageWrapper;
 import org.bukkit.entity.Player;
 

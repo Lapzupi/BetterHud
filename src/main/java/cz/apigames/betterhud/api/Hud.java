@@ -1,14 +1,13 @@
 package cz.apigames.betterhud.api;
 
-import cz.apigames.betterhud.api.Displays.ActionBarDisplay;
-import cz.apigames.betterhud.api.Displays.BossBarDisplay;
-import cz.apigames.betterhud.api.Displays.Display;
-import cz.apigames.betterhud.api.Displays.DisplayType;
-import cz.apigames.betterhud.api.Elements.Alignment;
-import cz.apigames.betterhud.api.Elements.Element;
-import cz.apigames.betterhud.api.Utils.Condition;
-import cz.apigames.betterhud.api.Utils.Placeholder;
-import cz.apigames.betterhud.api.Utils.ToggleEvent;
+import cz.apigames.betterhud.api.displays.ActionBarDisplay;
+import cz.apigames.betterhud.api.displays.BossBarDisplay;
+import cz.apigames.betterhud.api.displays.Display;
+import cz.apigames.betterhud.api.displays.DisplayType;
+import cz.apigames.betterhud.api.elements.Alignment;
+import cz.apigames.betterhud.api.elements.Element;
+import cz.apigames.betterhud.api.utils.Condition;
+import cz.apigames.betterhud.api.utils.ToggleEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
