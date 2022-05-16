@@ -10,6 +10,7 @@ import dev.lone.itemsadder.api.FontImages.FontImageWrapper;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -154,7 +155,7 @@ public final class BetterHud extends JavaPlugin {
         return plugin;
     }
 
-    public static String getVersion() {
+    public static @NotNull String getVersion() {
         return getPlugin().getDescription().getVersion();
     }
 
@@ -212,7 +213,7 @@ public final class BetterHud extends JavaPlugin {
         return api;
     }
 
-    public static String getMessage(String path) {
+    public static @NotNull String getMessage(String path) {
 
         if(ConfigManager.getConfig("messages.yml").isSet("messages."+path)) {
             return MessageUtils.colorize(ConfigManager.getConfig("messages.yml").getString("messages."+path));
