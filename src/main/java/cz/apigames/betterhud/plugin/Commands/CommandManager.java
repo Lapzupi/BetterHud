@@ -42,7 +42,7 @@ public class CommandManager implements CommandExecutor {
                 //SHOW
                 if(args[0].equalsIgnoreCase("show")) {
 
-                    Bukkit.getScheduler().runTaskAsynchronously(BetterHud.getPlugin(), (Runnable) () -> {
+                    Bukkit.getScheduler().runTaskAsynchronously(BetterHud.getPlugin(), () -> {
 
                         if(sender.hasPermission("betterhud.command.show")) {
 
@@ -695,117 +695,7 @@ public class CommandManager implements CommandExecutor {
                     }
 
                 }
-
-                //RELOAD
-                else if(args[0].equalsIgnoreCase("reload")) {
-
-                    if(sender.hasPermission("betterhud.command.reload")) {
-
-                        long time = System.currentTimeMillis();
-
-                        //TEMP CACHE
-                        HashMap<Player, HashMap<DisplayType, String>> cachedActiveHuds = new HashMap<>();
-
-                        Display.getDisplays().forEach(display -> {
-
-                            HashMap<DisplayType, String> huds;
-                            if(cachedActiveHuds.containsKey(display.getPlayer())) {
-                                huds = cachedActiveHuds.get(display.getPlayer());
-                            } else {
-                                huds = new HashMap<>();
-                            }
-
-                            huds.put(DisplayType.getDisplayType(display), display.getHud().getName());
-                            cachedActiveHuds.put(display.getPlayer(), huds);
-
-                        });
-
-                        BetterHud.getAPI().unload();
-
-                        ConfigManager.reloadConfig("config.yml");
-                        ConfigManager.reloadConfig("messages.yml");
-                        ConfigManager.reloadConfig("characters.yml");
-
-                        //TOGGLE COMMAND MESSAGES
-                        ToggleCommand.setEnableMessage(ConfigManager.getConfig("messages.yml").getString("messages.toggle-custom-on", ""));
-                        ToggleCommand.setDisableMessage(ConfigManager.getConfig("messages.yml").getString("messages.toggle-custom-off", ""));
-
-                        List<String> errors = BetterHud.getAPI().load(new File(BetterHud.getPlugin().getDataFolder(), "config.yml"), true);
-                        Future<Boolean> FontImageFiles_success = BetterHud.getAPI().generateFontImageFiles(new File(BetterHud.getPlugin().getDataFolder(), "characters.yml"), new File("plugins/ItemsAdder/data/items_packs/betterhud"));
-
-                        try {
-                            if(FontImageFiles_success.get(5, TimeUnit.SECONDS)) {
-
-                                //ASYNC
-                                Bukkit.getScheduler().runTaskAsynchronously(BetterHud.getPlugin(), () -> {
-
-                                    boolean ia_reload = false;
-
-                                    Set<String> updatedChecksums = new HashSet<>();
-                                    for(File child : BetterHudAPI.getFontImagesDirectory().listFiles()) {
-
-                                        String checksum = FileUtils.checksum(child);
-                                        updatedChecksums.add(checksum);
-
-                                        if(!BetterHud.checksums.contains(checksum)) {
-                                            ia_reload = true;
-                                        }
-
-                                    }
-                                    BetterHud.checksums.clear();
-                                    BetterHud.checksums.addAll(updatedChecksums);
-
-                                    if(ia_reload) {
-                                        Bukkit.getScheduler().runTask(BetterHud.getPlugin(), () -> {
-                                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "iazip");
-                                            sender.sendMessage(BetterHud.getMessage("reload-itemsadder"));
-                                        });
-                                    }
-
-                                    //SHOW ACTIVE DISPLAYS
-                                    cachedActiveHuds.forEach((player, huds) -> huds.forEach((displayType, s) -> {
-
-                                        if(BetterHud.getAPI().hudExists(s)) {
-                                            Display.createDisplay(player, BetterHud.getAPI().getHud(s), displayType);
-                                        }
-
-                                    }));
-
-                                    cachedActiveHuds.clear();
-
-                                });
-
-                                //ERROR MESSAGE
-                                if(!errors.isEmpty()) {
-                                    BetterHud.sendErrorToConsole("========================================");
-                                    BetterHud.sendErrorToConsole("BetterHud - Found configuration errors");
-                                    BetterHud.sendErrorToConsole(" ");
-                                    errors.forEach(BetterHud::sendErrorToConsole);
-                                    BetterHud.sendErrorToConsole(" ");
-                                    BetterHud.sendErrorToConsole("========================================");
-                                    sender.sendMessage(BetterHud.getMessage("reload-error"));
-                                    return true;
-                                }
-
-                                sender.sendMessage(BetterHud.getMessage("reload-successful").replace("{time}", String.valueOf(System.currentTimeMillis()-time)));
-
-                            }
-                        } catch (InterruptedException | ExecutionException e) {
-                            BetterHud.error("An error occurred while waiting for FontImage file generation task completion.", e);
-                            sender.sendMessage(BetterHud.getMessage("reload-error"));
-                            return true;
-                        } catch (TimeoutException e) {
-                            BetterHud.error("FontImage files generation took too long! Reload task was terminated to keep thread safe.", e);
-                            sender.sendMessage(BetterHud.getMessage("reload-error"));
-                            return true;
-                        }
-
-                    } else {
-                        sender.sendMessage(BetterHud.getMessage("no-permission"));
-                    }
-
-                }
-
+                
                 //EXPORT TEXTURES
                 else if(args[0].equalsIgnoreCase("extractTextures")) {
 
