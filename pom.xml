@@ -30,6 +30,7 @@
         <validation.api.version>2.0.1.Final</validation.api.version>
         <hibernate.validation.version>7.0.4.Final</hibernate.validation.version>
         <javax.el.version>3.0.0</javax.el.version>
+        <acf.version>0.5.1-SNAPSHOT</acf.version>
     </properties>
 
     <build>
@@ -41,6 +42,9 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <compilerArgs>
+                        <arg>-parameters</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
             <plugin>
@@ -55,6 +59,16 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <relocations>
+                                <relocation>
+                                    <pattern>co.aikar.commands</pattern>
+                                    <shadedPattern>cz.apigames.betterhud.acf</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>co.aikar.locales</pattern>
+                                    <shadedPattern>cz.apigames.betterhud.locales</shadedPattern>
+                                </relocation>
+                            </relocations>
                         </configuration>
                     </execution>
                 </executions>
@@ -89,6 +103,10 @@
             <id>commons-io</id>
             <url>https://mvnrepository.com/artifact/commons-io/commons-io</url>
         </repository>
+        <repository>
+            <id>aikar</id>
+            <url>https://repo.aikar.co/content/groups/aikar/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -115,6 +133,12 @@
             <artifactId>commons-io</artifactId>
             <version>${commons.io.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>co.aikar</groupId>
+            <artifactId>acf-paper</artifactId>
+            <version>${acf.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
