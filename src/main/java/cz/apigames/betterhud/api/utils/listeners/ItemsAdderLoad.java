@@ -41,7 +41,7 @@ class ItemsAdderLoad implements Listener {
 
         //IMAGE ELEMENTS
 
-        BetterHudAPI.getLoadedHuds().stream().filter(Objects::nonNull).forEach(hud -> hud.getElements().stream().filter(element -> element instanceof ImageElement).forEach(element -> {
+        BetterHudAPI.getLoadedHuds().stream().filter(Objects::nonNull).forEach(hud -> hud.getElements().stream().filter(ImageElement.class::isInstance).forEach(element -> {
 
             FontImageWrapper image = new FontImageWrapper(((ImageElement) element).getImageName() + "-" + element.getY() + "_" + element.getScale());
             if(image != null && image.exists()) {
