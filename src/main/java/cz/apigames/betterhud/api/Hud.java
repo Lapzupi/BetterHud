@@ -124,8 +124,7 @@ public class Hud {
      * @param <T> the element's type
      * @return added element
      */
-    public <T extends Element> T addElement(@NotNull T t)
-    {
+    public <T extends Element> T addElement(@NotNull T t) {
 
         Objects.requireNonNull(t);
         elements.add(t);
@@ -137,10 +136,9 @@ public class Hud {
     /**
      * Adds the specified list of elements to this hud.
      *
-     * @param elements   the list of elements to add to this hud
+     * @param elements the list of elements to add to this hud
      */
-    public void addElements(@NotNull List<Element> elements)
-    {
+    public void addElements(@NotNull List<Element> elements) {
 
         Objects.requireNonNull(elements);
         this.elements.addAll(elements);
@@ -151,7 +149,7 @@ public class Hud {
     /**
      * Adds the specified condition to this hud
      *
-     * @param condition   the condition
+     * @param condition the condition
      */
     public void addCondition(Condition condition) {
         conditions.add(condition);
@@ -160,7 +158,7 @@ public class Hud {
     /**
      * Adds the specified ToggleEvent which will toggle this hud
      *
-     * @param toggleEvent   the new instance of ToggleEvent
+     * @param toggleEvent the new instance of ToggleEvent
      */
     public void addEvent(ToggleEvent toggleEvent) {
         events.add(toggleEvent);
@@ -169,7 +167,7 @@ public class Hud {
     /**
      * Removes the specified element from this hud.
      *
-     * @param element   the element to remove from this hud
+     * @param element the element to remove from this hud
      * @return true if this hud contained the specified element
      */
     public boolean removeElement(@NotNull Element element) {
@@ -181,7 +179,7 @@ public class Hud {
     /**
      * Removes the specified elements from this hud.
      *
-     * @param elements   the list of element to remove from this hud
+     * @param elements the list of element to remove from this hud
      * @return true if this hud contained the specified elements
      */
     public boolean removeElements(@NotNull List<Element> elements) {
@@ -193,7 +191,7 @@ public class Hud {
     /**
      * Renders the hud for specified player
      *
-     * @param player   the player
+     * @param player the player
      * @return rendered hud in String
      */
     public String getRenderedString(Player player) {
@@ -206,30 +204,28 @@ public class Hud {
     /**
      * Renders the hud for specified player for specified time
      *
-     * @param player   the player
-     * @param displayType  where the hud should be rendered (ACTIONBAR, BOSSBAR, CHAT)
-     * @param hideAfter time in seconds the hud should disappear
-     * @param override when there is some hud already displayed, should we override it?
-     *                 When hideAfter is set, the old hud will be re-displayed after that time
-     *
-     * @throws IllegalArgumentException when displayType is not valid
-     * @throws IllegalStateException when some hud is already displayed via specified displayType
-     *
+     * @param player      the player
+     * @param displayType where the hud should be rendered (ACTIONBAR, BOSSBAR, CHAT)
+     * @param hideAfter   time in seconds the hud should disappear
+     * @param override    when there is some hud already displayed, should we override it?
+     *                    When hideAfter is set, the old hud will be re-displayed after that time
      * @return true if player have met all specified conditions
+     * @throws IllegalArgumentException when displayType is not valid
+     * @throws IllegalStateException    when some hud is already displayed via specified displayType
      */
     public boolean renderFor(Player player, DisplayType displayType, int hideAfter, boolean override) throws IllegalStateException, IllegalArgumentException {
 
-        for(Condition cond : conditions) {
-            if(!cond.checkFor(player)) return false;
+        for (Condition cond : conditions) {
+            if (!cond.checkFor(player)) return false;
         }
 
-        if(Display.getDisplays(player).stream().anyMatch(display -> DisplayType.getDisplayType(display).equals(displayType))) {
+        if (Display.getDisplays(player).stream().anyMatch(display -> DisplayType.getDisplayType(display).equals(displayType))) {
 
-            if(override) {
+            if (override) {
 
                 Display.getDisplays(player).stream().filter(display -> DisplayType.getDisplayType(display).equals(displayType)).findFirst().ifPresent(display -> {
 
-                    if(hideAfter != 0) {
+                    if (hideAfter != 0) {
 
                         Hud oldHud = display.getHud();
                         display.destroy();
@@ -250,28 +246,24 @@ public class Hud {
 
         }
 
-        if(displayType.equals(DisplayType.CHAT)) {
+        if (displayType.equals(DisplayType.CHAT)) {
             player.sendMessage(getRenderedString(player));
             return true;
-        } else if(displayType.equals(DisplayType.ACTIONBAR)) {
+        } else if (displayType.equals(DisplayType.ACTIONBAR)) {
             new ActionBarDisplay(player, this);
-        } else if(displayType.equals(DisplayType.BOSSBAR)) {
+        } else if (displayType.equals(DisplayType.BOSSBAR)) {
             new BossBarDisplay(player, this);
         } else {
             throw new IllegalArgumentException("Invalid DisplayType value!");
         }
 
-        if(hideAfter != 0) {
+        if (hideAfter != 0) {
             Bukkit.getScheduler().runTaskLaterAsynchronously(BetterHudAPI.getPlugin(), () -> {
 
-                if(isVisible(player)) {
-
+                if (isVisible(player)) {
                     hide(player);
-
                 }
-
-
-            }, hideAfter* 20L);
+            }, hideAfter * 20L);
         }
         return true;
     }
@@ -279,11 +271,10 @@ public class Hud {
     /**
      * Renders the hud for specified player
      *
-     * @param player   the player
-     * @param displayType  where the hud should be rendered (ACTIONBAR, BOSSBAR, CHAT)
-     *
+     * @param player      the player
+     * @param displayType where the hud should be rendered (ACTIONBAR, BOSSBAR, CHAT)
      * @throws IllegalArgumentException when displayType is not valid
-     * @throws IllegalStateException when some hud is already displayed via specified displayType
+     * @throws IllegalStateException    when some hud is already displayed via specified displayType
      */
     public boolean renderFor(Player player, DisplayType displayType) throws IllegalStateException, IllegalArgumentException {
         return renderFor(player, displayType, 0, false);
@@ -292,14 +283,14 @@ public class Hud {
     /**
      * Hides the hud from specified player
      *
-     * @param player   the player
+     * @param player the player
      * @return true if hud was visible and hidden successfully
      */
     public boolean hide(Player player) {
 
         List<Display> displays = Display.getDisplays(player, this);
 
-        if(!displays.isEmpty()) {
+        if (!displays.isEmpty()) {
             displays.forEach(Display::destroy);
             return true;
         }
@@ -314,32 +305,32 @@ public class Hud {
      */
     public void calculateOffsets(Player player) {
 
-        for(int i=0;i<elements.size();i++) {
+        for (int i = 0; i < elements.size(); i++) {
 
             Element currElement = elements.get(i);
 
-            if(!currElement.isVisible(player)) {
-               continue;
+            if (!currElement.isVisible(player)) {
+                continue;
             }
 
             int plus = 0;
             int minus = 0;
 
             //MINUS
-            for(int x=i-1;x>=0;x--) {
+            for (int x = i - 1; x >= 0; x--) {
                 minus -= elements.get(x).calculateWidth(player);
             }
 
             //PLUS
-            for(int x=i+1;x<elements.size();x++) {
+            for (int x = i + 1; x < elements.size(); x++) {
                 plus += elements.get(x).calculateWidth(player);
             }
 
-            if(currElement.getAlign().equals(Alignment.LEFT)) {
+            if (currElement.getAlign().equals(Alignment.LEFT)) {
                 currElement.ix = ((elements.get(i).getX() - 955) + plus + minus) + (elements.get(i).calculateWidth(player));
-            } else if(currElement.getAlign().equals(Alignment.RIGHT)) {
+            } else if (currElement.getAlign().equals(Alignment.RIGHT)) {
                 currElement.ix = ((elements.get(i).getX() - 955) + plus + minus) - (elements.get(i).calculateWidth(player));
-            } else if(currElement.getAlign().equals(Alignment.CENTER)) {
+            } else if (currElement.getAlign().equals(Alignment.CENTER)) {
                 currElement.ix = ((elements.get(i).getX() - 955) + plus + minus);
             }
             currElement.iy = (elements.get(i).getY());
@@ -359,7 +350,7 @@ public class Hud {
         while (true) {
 
             int finalI = i;
-            if(elements.stream().anyMatch(element -> element.getName().equals("generatedElement-"+finalI))) {
+            if (elements.stream().anyMatch(element -> element.getName().equals("generatedElement-" + finalI))) {
                 i++;
             } else {
                 break;
@@ -367,7 +358,7 @@ public class Hud {
 
         }
 
-        return "generatedElement-"+i;
+        return "generatedElement-" + i;
 
     }
 
