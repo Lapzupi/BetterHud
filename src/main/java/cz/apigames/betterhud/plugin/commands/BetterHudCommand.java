@@ -2,6 +2,7 @@ package cz.apigames.betterhud.plugin.commands;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.CommandCompletion;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Default;
 import co.aikar.commands.annotation.Single;
@@ -210,6 +211,7 @@ public class BetterHudCommand extends BaseCommand {
 
     @Subcommand("hide")
     @CommandPermission("betterhud.command.hide")
+    @CommandCompletion("@huds @players")
     public void onHide(final CommandSender sender, @Single final String hudId, final Player target) {
         if (!BetterHud.getAPI().hudExists(hudId)) {
             sender.sendMessage(BetterHud.getMessage("unknown-hud"));
@@ -223,6 +225,8 @@ public class BetterHudCommand extends BaseCommand {
     }
 
     @Subcommand("hide-all")
+    @CommandPermission("betterhud.command.hide.all")
+    @CommandCompletion("@huds")
     public void onHideAll(final CommandSender sender, @Single final String hudId){
         if (!BetterHud.getAPI().hudExists(hudId)) {
             sender.sendMessage(BetterHud.getMessage("unknown-hud"));
@@ -238,6 +242,8 @@ public class BetterHudCommand extends BaseCommand {
     }
 
     @Subcommand("setvalue")
+    @CommandPermission("betterhud.command.setvalue")
+    @CommandCompletion("@players @huds @elements @nothing")
     public void onSetValue(final CommandSender sender,final Player target, @Single final String hudId,@Single final String elementId, final String value) {
         if (!BetterHud.getAPI().hudExists(hudId)) {
             sender.sendMessage(BetterHud.getMessage("unknown-hud"));
@@ -260,6 +266,8 @@ public class BetterHudCommand extends BaseCommand {
                 .replace("{player}", target.getName()));
     }
     @Subcommand("setvalueall")
+    @CommandPermission("betterhud.command.setvalue.all")
+    @CommandCompletion("@huds @elements @nothing")
     public void onSetValueAll(final CommandSender sender, @Single final String hudId,@Single final String elementId, final String value) {
         if (!BetterHud.getAPI().hudExists(hudId)) {
             sender.sendMessage(BetterHud.getMessage("unknown-hud"));
@@ -284,6 +292,7 @@ public class BetterHudCommand extends BaseCommand {
 
     @Subcommand("getvalue")
     @CommandPermission("betterhud.command.getvalue")
+    @CommandCompletion("@huds @elements @players")
     public void onGetValue(final CommandSender sender, final String hudId, final String elementId, final Player target) {
         if (!BetterHud.getAPI().hudExists(hudId)) {
             sender.sendMessage(BetterHud.getMessage("unknown-hud"));
@@ -308,6 +317,7 @@ public class BetterHudCommand extends BaseCommand {
 
     @Subcommand("resetValueAll")
     @CommandPermission("betterhud.command.resetvalue.all")
+    @CommandCompletion("@huds @elements")
     public void onResetValueAll(final CommandSender sender, final String hudId, final String elementId) {
         if (!BetterHud.getAPI().hudExists(hudId)) {
             sender.sendMessage(BetterHud.getMessage("unknown-hud"));
@@ -331,6 +341,7 @@ public class BetterHudCommand extends BaseCommand {
     }
     @Subcommand("resetValue")
     @CommandPermission("betterhud.command.resetvalue")
+    @CommandCompletion("@huds @elements @players")
     public void onResetValue(final CommandSender sender, final String hudId, final String elementId, final Player target) {
         if (!BetterHud.getAPI().hudExists(hudId)) {
             sender.sendMessage(BetterHud.getMessage("unknown-hud"));
@@ -356,6 +367,7 @@ public class BetterHudCommand extends BaseCommand {
 
     @Subcommand("show-element-all")
     @CommandPermission("betterhud.command.showelement.all")
+    @CommandCompletion("@huds @elements")
     public void onShowElementAll(final CommandSender sender, final String hudId, final String elementId) {
         if (!BetterHud.getAPI().hudExists(hudId)) {
             sender.sendMessage(BetterHud.getMessage("unknown-hud"));
@@ -381,6 +393,7 @@ public class BetterHudCommand extends BaseCommand {
 
     @Subcommand("show-element")
     @CommandPermission("betterhud.command.showelement")
+    @CommandCompletion("@huds @elements @players")
     public void onShowElement(final CommandSender sender, final String hudId, final String elementId, final Player target) {
         if (!BetterHud.getAPI().hudExists(hudId)) {
             sender.sendMessage(BetterHud.getMessage("unknown-hud"));
@@ -405,6 +418,7 @@ public class BetterHudCommand extends BaseCommand {
 
     @Subcommand("hide-element-all")
     @CommandPermission("betterhud.command.hideelement.all")
+    @CommandCompletion("@huds @elements")
     public void onHideElementsAll(final CommandSender sender, final String hudId, final String elementId) {
         if (!BetterHud.getAPI().hudExists(hudId)) {
             sender.sendMessage(BetterHud.getMessage("unknown-hud"));
@@ -433,6 +447,7 @@ public class BetterHudCommand extends BaseCommand {
 
     @Subcommand("hideElement")
     @CommandPermission("betterhud.command.hideelement")
+    @CommandCompletion("@huds @elements @players")
     public void onHideElement(final CommandSender sender, final String hudId, final String elementId, final Player target) {
         if (!BetterHud.getAPI().hudExists(hudId)) {
             sender.sendMessage(BetterHud.getMessage("unknown-hud"));
@@ -460,6 +475,7 @@ public class BetterHudCommand extends BaseCommand {
 
     @Subcommand("setX")
     @CommandPermission("betterhud.command.setx")
+    @CommandCompletion("@huds @elements")
     public void onSetX(final CommandSender sender, final String hudId, final String elementId, final int value) {
         if (!BetterHud.getAPI().hudExists(hudId)) {
             sender.sendMessage(BetterHud.getMessage("unknown-hud"));

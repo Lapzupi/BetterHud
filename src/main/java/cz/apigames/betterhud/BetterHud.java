@@ -2,6 +2,8 @@ package cz.apigames.betterhud;
 
 import co.aikar.commands.PaperCommandManager;
 import cz.apigames.betterhud.api.BetterHudAPI;
+import cz.apigames.betterhud.api.Hud;
+import cz.apigames.betterhud.api.elements.Element;
 import cz.apigames.betterhud.api.utils.MessageUtils;
 import cz.apigames.betterhud.api.utils.ToggleCommand;
 import cz.apigames.betterhud.plugin.commands.BetterHudCommand;
@@ -130,6 +132,8 @@ public final class BetterHud extends JavaPlugin {
 
             //COMMANDS
             PaperCommandManager paperCommandManager = new PaperCommandManager(this);
+            paperCommandManager.getCommandCompletions().registerCompletion("elements", c -> BetterHud.getAPI().getHud(c.getContextValueByName(String.class,"hudId")).getElements().stream().map(Element::getName).toList());
+            paperCommandManager.getCommandCompletions().registerCompletion("huds",c -> BetterHudAPI.getLoadedHuds().stream().map(Hud::getName).toList());
             paperCommandManager.enableUnstableAPI("brigadier");
             paperCommandManager.registerCommand(new BetterHudCommand());
         }
@@ -176,11 +180,10 @@ public final class BetterHud extends JavaPlugin {
     }
 
     public static boolean isIASelfHosted() {
-
-        File IA_FILE = new File("plugins/ItemsAdder", "config.yml");
-        YamlConfiguration IA_CONFIG = YamlConfiguration.loadConfiguration(IA_FILE);
-        return IA_CONFIG.getConfigurationSection("resource-pack").getConfigurationSection("self-host").getBoolean("enabled");
-
+        //todo, maybe we can check this through the api?
+        File itemsAdderFile = new File("plugins/ItemsAdder", "config.yml");
+        YamlConfiguration itemsAdderConfig = YamlConfiguration.loadConfiguration(itemsAdderFile);
+        return itemsAdderConfig.getConfigurationSection("resource-pack").getConfigurationSection("self-host").getBoolean("enabled");
     }
 
     public static boolean isDebugEnabled() {
