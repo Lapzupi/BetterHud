@@ -3,7 +3,6 @@ package cz.apigames.betterhud;
 import cz.apigames.betterhud.api.BetterHudAPI;
 import cz.apigames.betterhud.api.utils.MessageUtils;
 import cz.apigames.betterhud.api.utils.ToggleCommand;
-import cz.apigames.betterhud.plugin.commands.CommandManager;
 import cz.apigames.betterhud.plugin.commands.TabManager;
 import cz.apigames.betterhud.plugin.utils.*;
 import dev.lone.itemsadder.api.FontImages.FontImageWrapper;

@@ -1,5 +1,6 @@
 package cz.apigames.betterhud.plugin.commands;
 
+import co.aikar.commands.CommandManager;
 import cz.apigames.betterhud.BetterHud;
 import cz.apigames.betterhud.api.elements.Element;
 import cz.apigames.betterhud.api.Hud;
@@ -154,7 +155,7 @@ public class TabManager implements TabCompleter {
             } else if(args[0].equalsIgnoreCase("setX")) {
 
                 if(!args[3].equals("")) {
-                    if(!CommandManager.isNumber(args[3])) {
+                    if(!isNumber(args[3])) {
                         return Collections.singletonList("MUST_BE_NUMBER");
                     }
                 }
@@ -165,5 +166,15 @@ public class TabManager implements TabCompleter {
 
         return tabComplete;
     }
-
+    public static boolean isNumber(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -168,11 +168,48 @@ public class BetterHudCommand extends BaseCommand {
 
 
     @Subcommand("show")
-    public void onShow() {
+    @CommandPermission("betterhud.command.show")
+    public void onShow(final CommandSender sender,final Player target, @Single final String hudId, @Single DisplayType displayType) {
+        if (!BetterHud.getAPI().hudExists(hudId)) {
+            sender.sendMessage(BetterHud.getMessage("unknown-hud"));
+            return;
+        }
 
+        if(BetterHud.getAPI().getHud(hudId).renderFor(target, displayType)) {
+            sender.sendMessage(BetterHud.getMessage("show-player")
+                    .replace("{hudName}", hudId).replace("{player}", target.getName()));
+            return;
+        }
+
+        sender.sendMessage(BetterHud.getMessage("show-condition-error"));
+    }
+    @Subcommand("show all")
+    @CommandPermission("betterhud.command.show.all")
+    public void onShowAll(final CommandSender sender, @Single final String hudId, @Single DisplayType displayType) {
+        if (!BetterHud.getAPI().hudExists(hudId)) {
+            sender.sendMessage(BetterHud.getMessage("unknown-hud"));
+            return;
+        }
+
+        Bukkit.getScheduler().runTaskAsynchronously(BetterHud.getPlugin(), () -> {
+            for(Player target : Bukkit.getOnlinePlayers()) {
+
+                try {
+                    BetterHud.getAPI().getHud(hudId).renderFor(target, displayType);
+                } catch (IllegalStateException e) {
+                    sender.sendMessage(BetterHud.getMessage("show-error"));
+                    return;
+                }
+
+            }
+
+            sender.sendMessage(BetterHud.getMessage("show-all")
+                    .replace("{hudName}", hudId));
+        });
     }
 
     @Subcommand("hide")
+    @CommandPermission("betterhud.command.hide")
     public void onHide(final CommandSender sender, @Single final String hudId, final Player target) {
         if (!BetterHud.getAPI().hudExists(hudId)) {
             sender.sendMessage(BetterHud.getMessage("unknown-hud"));
@@ -197,7 +234,7 @@ public class BetterHudCommand extends BaseCommand {
         }
 
         sender.sendMessage(BetterHud.getMessage("hide-all")
-                .replace("{hudName}", hudId);
+                .replace("{hudName}", hudId));
     }
 
     @Subcommand("setvalue")
