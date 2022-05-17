@@ -22,7 +22,7 @@ configuration:
   debug:
     enabled: false
 
-  #When its false, there can be some incompatibility issues
+  #When it's false, there can be some incompatibility issues
   disable-itesmadder-hud: true
 
   #This option controls behaviour of custom texture (assets/minecraft/textures/gui/icons.png),

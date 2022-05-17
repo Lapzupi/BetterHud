@@ -234,11 +234,7 @@ public class Hud {
                         Hud oldHud = display.getHud();
                         display.destroy();
 
-                        Bukkit.getScheduler().runTaskLaterAsynchronously(BetterHudAPI.getPlugin(), () -> {
-
-                            oldHud.renderFor(player, displayType, 0, true);
-
-                        }, hideAfter * 20L);
+                        Bukkit.getScheduler().runTaskLaterAsynchronously(BetterHudAPI.getPlugin(), () -> oldHud.renderFor(player, displayType, 0, true), hideAfter * 20L);
 
                     } else {
 

@@ -604,8 +604,9 @@ public class BetterHudAPI {
         String curVer = Bukkit.getServer().getVersion();
 
         for(String ver : HEX_VERSIONS) {
-            if(curVer.contains(ver)) {
+            if (curVer.contains(ver)) {
                 HEX_SUPPORTED = true;
+                return;
             }
         }
         HEX_SUPPORTED = false;

@@ -11,8 +11,8 @@ import java.util.HashMap;
 
 public class ConfigManager {
 
-    private static BetterHud plugin = BetterHud.getPlugin();
-    private static HashMap<String, YamlConfiguration> configs = new HashMap<>() {
+    private static final BetterHud plugin = BetterHud.getPlugin();
+    private static final HashMap<String, YamlConfiguration> configs = new HashMap<>() {
     };
 
     public static void loadConfig(String configName) {

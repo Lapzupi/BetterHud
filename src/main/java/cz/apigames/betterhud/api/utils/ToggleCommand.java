@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.logging.Level;
 
+//TODO
 public class ToggleCommand extends BukkitCommand {
 
     private static String toggle_on;
@@ -27,8 +28,7 @@ public class ToggleCommand extends BukkitCommand {
 
     @Override
     public boolean execute(@NotNull CommandSender commandSender, @NotNull String s, @NotNull String[] strings) {
-        if (commandSender instanceof Player) {
-            Player player = (Player) commandSender;
+        if (commandSender instanceof Player player) {
             BetterHudAPI.getLoadedHuds().forEach(hud -> {
 
                 Optional<ToggleEvent> optEvent = hud.getEvents().stream().filter(toggleEvent -> toggleEvent.getEventType().equals(ToggleEvent.EventType.COMMAND) && toggleEvent.getOptValue().equalsIgnoreCase(s)).findFirst();

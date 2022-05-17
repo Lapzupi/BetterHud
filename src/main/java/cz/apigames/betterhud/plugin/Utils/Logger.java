@@ -54,7 +54,7 @@ public class Logger {
 
                 for(Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
 
-                    plugins.append(plugin.getName()+" ["+plugin.getDescription().getVersion()+"], ");
+                    plugins.append(plugin.getName()).append(" [").append(plugin.getDescription().getVersion()).append("], ");
 
                 }
 
@@ -74,7 +74,7 @@ public class Logger {
                 fileStream.println(" Server version: "+Bukkit.getVersion());
                 fileStream.println(" Resource pack host: "+host);
                 fileStream.println(" ");
-                fileStream.println("Plugins: "+ plugins.toString());
+                fileStream.println("Plugins: "+ plugins);
 
                 fileStream.close();
             }

@@ -37,7 +37,7 @@ public class ImageElement extends Element {
 
     /**
      * Change the width of the image
-     * (Note: This wont change the rendered image!! This "width" value is for internal calculations only!)
+     * (Note: This won't change the rendered image!! This "width" value is for internal calculations only!)
      *
      * @param width the width
      */
