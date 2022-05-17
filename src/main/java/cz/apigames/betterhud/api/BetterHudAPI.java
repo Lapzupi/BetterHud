@@ -10,6 +10,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import javax.management.InstanceAlreadyExistsException;
 import javax.validation.*;
@@ -30,10 +32,10 @@ public class BetterHudAPI {
 
     protected static File FontImagesDirectory;
 
-    protected static HashMap<Player, List<Placeholder>> placeholders = new HashMap<>();
+    protected static Map<Player, List<Placeholder>> placeholders = new HashMap<>();
 
-    public static final HashMap<String, FontImageWrapper> fontImageCharacters = new HashMap<>();
-    public static final HashMap<Character, String> charactersInternalNames = new HashMap<>();
+    public static final Map<String, FontImageWrapper> fontImageCharacters = new HashMap<>();
+    public static final Map<Character, String> charactersInternalNames = new HashMap<>();
 
     private static final String[] HEX_VERSIONS = {"1.16", "1.17", "1.18", "1.19"};
 
@@ -75,7 +77,7 @@ public class BetterHudAPI {
      */
     public Hud createHud(String name) throws InstanceAlreadyExistsException {
 
-        if(hudMap.containsKey(name)) {;
+        if(hudMap.containsKey(name)) {
             throw new InstanceAlreadyExistsException("Hud with this name already exists! Name of the hud: "+name);
         }
 
@@ -125,7 +127,8 @@ public class BetterHudAPI {
      *
      * @return Collection of nullable Hud instances
      */
-    public static Collection<Hud> getLoadedHuds() {
+    @Contract(pure = true)
+    public static @NotNull Collection<Hud> getLoadedHuds() {
         return hudMap.values();
     }
 
@@ -141,7 +144,8 @@ public class BetterHudAPI {
 
     }
 
-    private String generateHudName() {
+    @Contract(pure = true)
+    private @NotNull String generateHudName() {
 
         int i = 0;
         while(hudMap.containsKey("generatedHud-"+i)) {
@@ -233,7 +237,9 @@ public class BetterHudAPI {
                 for(String elementName : yamlFile.getConfigurationSection("huds."+hudName+".elements").getKeys(false)) {
 
                     Element element = null;
-                    int x,y,scale;
+                    int x;
+                    int y;
+                    int scale;
                     Alignment align = Alignment.LEFT;
 
                     x = yamlFile.getInt("huds."+hudName+".elements."+elementName+".position-x");
@@ -345,7 +351,7 @@ public class BetterHudAPI {
      * @param file   the file, where the huds should be saved
      * @return true if task was successful
      */
-    public boolean save(File file) {
+    public boolean save(@NotNull File file) {
 
         try {
 
@@ -542,9 +548,7 @@ public class BetterHudAPI {
                     });
 
                     for(String fileName : namespaceFiles.keySet()) {
-
                         namespaceFiles.get(fileName).save(new File(directory, fileName));
-
                     }
                     return true;
 

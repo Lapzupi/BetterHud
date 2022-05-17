@@ -3,6 +3,8 @@ package cz.apigames.betterhud.api.displays;
 import cz.apigames.betterhud.api.Hud;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +26,7 @@ public abstract class Display {
         init();
     }
 
-    public static Display createDisplay(Player player, Hud hud, DisplayType displayType) {
+    public static @Nullable Display createDisplay(Player player, Hud hud, @NotNull DisplayType displayType) {
 
         if(displayType.equals(DisplayType.ACTIONBAR)) {
             return new ActionBarDisplay(player, hud);
@@ -67,7 +69,7 @@ public abstract class Display {
     }
 
     public static List<Display> getDisplays(Player player, Hud hud) {
-        return displays.stream().filter(display -> display.getPlayer().equals(player) && display.getHud().equals(hud)).collect(Collectors.toList());
+        return displays.stream().filter(display -> display.getPlayer().equals(player) && display.getHud().equals(hud)).toList();
     }
 
     public static List<Display> getDisplays() {

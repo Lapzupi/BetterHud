@@ -199,11 +199,7 @@ public class Hud {
     public String getRenderedString(Player player) {
         calculateOffsets(player);
         StringBuilder builder = new StringBuilder();
-        elements.forEach(element -> {
-
-            builder.append(element.getFor(player));
-
-        });
+        elements.forEach(element -> builder.append(element.getFor(player)));
         return builder.toString();
     }
 
@@ -330,7 +326,8 @@ public class Hud {
                continue;
             }
 
-            int plus = 0, minus = 0;
+            int plus = 0;
+            int minus = 0;
 
             //MINUS
             for(int x=i-1;x>=0;x--) {
