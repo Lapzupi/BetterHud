@@ -170,6 +170,7 @@ public class BetterHudCommand extends BaseCommand {
 
     @Subcommand("show")
     @CommandPermission("betterhud.command.show")
+    @CommandCompletion("@huds @display-types")
     public void onShow(final CommandSender sender,final Player target, @Single final String hudId, @Single DisplayType displayType) {
         if (!BetterHud.getAPI().hudExists(hudId)) {
             sender.sendMessage(BetterHud.getMessage("unknown-hud"));
@@ -186,6 +187,7 @@ public class BetterHudCommand extends BaseCommand {
     }
     @Subcommand("show all")
     @CommandPermission("betterhud.command.show.all")
+    @CommandCompletion("@huds @display-types")
     public void onShowAll(final CommandSender sender, @Single final String hudId, @Single DisplayType displayType) {
         if (!BetterHud.getAPI().hudExists(hudId)) {
             sender.sendMessage(BetterHud.getMessage("unknown-hud"));

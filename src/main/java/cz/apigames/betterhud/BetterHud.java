@@ -3,6 +3,7 @@ package cz.apigames.betterhud;
 import co.aikar.commands.PaperCommandManager;
 import cz.apigames.betterhud.api.BetterHudAPI;
 import cz.apigames.betterhud.api.Hud;
+import cz.apigames.betterhud.api.displays.DisplayType;
 import cz.apigames.betterhud.api.elements.Element;
 import cz.apigames.betterhud.api.utils.MessageUtils;
 import cz.apigames.betterhud.api.utils.ToggleCommand;
@@ -134,6 +135,7 @@ public final class BetterHud extends JavaPlugin {
             PaperCommandManager paperCommandManager = new PaperCommandManager(this);
             paperCommandManager.getCommandCompletions().registerCompletion("elements", c -> BetterHud.getAPI().getHud(c.getContextValueByName(String.class,"hudId")).getElements().stream().map(Element::getName).toList());
             paperCommandManager.getCommandCompletions().registerCompletion("huds",c -> BetterHudAPI.getLoadedHuds().stream().map(Hud::getName).toList());
+            paperCommandManager.getCommandCompletions().registerCompletion("display-types", c -> List.of(DisplayType.ACTIONBAR.name(),DisplayType.ACTIONBAR.name(),DisplayType.CHAT.name()));
             paperCommandManager.enableUnstableAPI("brigadier");
             paperCommandManager.registerCommand(new BetterHudCommand());
         }

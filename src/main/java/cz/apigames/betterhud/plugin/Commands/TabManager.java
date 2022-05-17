@@ -118,43 +118,6 @@ public class TabManager implements TabCompleter {
 
         }
 
-        if(args.length == 4) {
-
-            //SHOW
-            if(args[0].equalsIgnoreCase("show")) {
-
-                StringUtil.copyPartialMatches(args[3], Arrays.asList("BOSSBAR", "ACTIONBAR", "CHAT"), tabComplete);
-                Collections.sort(tabComplete);
-
-                return tabComplete;
-
-            }
-
-            else if(Arrays.asList("setValue", "getValue", "resetValue", "showElement", "hideElement").contains(args[0])) {
-
-                List<String> elementNames = new ArrayList<>();
-                if(BetterHud.getAPI().hudExists(args[2])) {
-
-                    for(Element element : BetterHud.getAPI().getHud(args[2]).getElements()) {
-                        elementNames.add(element.getName());
-                    }
-
-                } else {
-                    return Collections.singletonList("UNKNOWN_HUD");
-                }
-
-                StringUtil.copyPartialMatches(args[3], elementNames, tabComplete);
-                Collections.sort(tabComplete);
-
-                if(tabComplete.isEmpty()) {
-                    return Collections.singletonList("UNKNOWN_ELEMENT");
-                }
-
-                return tabComplete;
-
-            }
-
-        }
 
         return tabComplete;
     }
