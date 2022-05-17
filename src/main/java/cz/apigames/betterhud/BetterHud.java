@@ -1,10 +1,16 @@
 package cz.apigames.betterhud;
 
+import co.aikar.commands.PaperCommandManager;
 import cz.apigames.betterhud.api.BetterHudAPI;
 import cz.apigames.betterhud.api.utils.MessageUtils;
 import cz.apigames.betterhud.api.utils.ToggleCommand;
-import cz.apigames.betterhud.plugin.commands.TabManager;
-import cz.apigames.betterhud.plugin.utils.*;
+import cz.apigames.betterhud.plugin.commands.BetterHudCommand;
+import cz.apigames.betterhud.plugin.utils.ConfigManager;
+import cz.apigames.betterhud.plugin.utils.Exceptions;
+import cz.apigames.betterhud.plugin.utils.FileUtils;
+import cz.apigames.betterhud.plugin.utils.Logger;
+import cz.apigames.betterhud.plugin.utils.TextureExtractor;
+import cz.apigames.betterhud.plugin.utils.UpdateChecker;
 import dev.lone.itemsadder.api.FontImages.FontImageWrapper;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -14,7 +20,11 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -119,10 +129,9 @@ public final class BetterHud extends JavaPlugin {
             }
 
             //COMMANDS
-            getCommand("betterhud").setExecutor(new CommandManager());
-            getCommand("betterhud").setTabCompleter(new TabManager());
-            getCommand("bh").setExecutor(new CommandManager());
-            getCommand("bh").setTabCompleter(new TabManager());
+            PaperCommandManager paperCommandManager = new PaperCommandManager(this);
+            paperCommandManager.enableUnstableAPI("brigadier");
+            paperCommandManager.registerCommand(new BetterHudCommand());
         }
 
         sendMessageToConsole("&aPlugin was successfully loaded! Version: &2"+getVersion());

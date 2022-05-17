@@ -79,7 +79,7 @@ public class TabManager implements TabCompleter {
             if(Arrays.asList("show", "hide", "setValue", "getValue", "resetValue", "showElement", "hideElement").contains(args[0])) {
 
                 List<String> hudNames = new ArrayList<>();
-                for(Hud hud : BetterHud.getAPI().getLoadedHuds()) {
+                for(Hud hud : BetterHud.getAPI().getLoadedHuds()) { //todo hud command completion
                     hudNames.add(hud.getName());
                 }
 
@@ -94,7 +94,7 @@ public class TabManager implements TabCompleter {
 
             } else if(args[0].equalsIgnoreCase("setX")) {
 
-                List<String> elementNames = new ArrayList<>();
+                List<String> elementNames = new ArrayList<>(); //todo element command completion
                 if(BetterHud.getAPI().hudExists(args[1])) {
 
                     for(Element element : BetterHud.getAPI().getHud(args[1]).getElements()) {
@@ -152,29 +152,10 @@ public class TabManager implements TabCompleter {
 
                 return tabComplete;
 
-            } else if(args[0].equalsIgnoreCase("setX")) {
-
-                if(!args[3].equals("")) {
-                    if(!isNumber(args[3])) {
-                        return Collections.singletonList("MUST_BE_NUMBER");
-                    }
-                }
-
             }
 
         }
 
         return tabComplete;
-    }
-    public static boolean isNumber(String strNum) {
-        if (strNum == null) {
-            return false;
-        }
-        try {
-            double d = Double.parseDouble(strNum);
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-        return true;
     }
 }
