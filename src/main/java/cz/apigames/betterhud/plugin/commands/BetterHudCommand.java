@@ -184,58 +184,156 @@ public class BetterHudCommand extends BaseCommand {
     }
 
 
-    public void onResetValue() {
+    @Subcommand("resetValueAll")
+    @CommandPermission("betterhud.command.resetvalue.all")
+    public void onResetValueAll(final CommandSender sender, final String hudId, final String elementId) {
+        if (!BetterHud.getAPI().hudExists(hudId)) {
+            sender.sendMessage(BetterHud.getMessage("unknown-hud"));
+            return;
+        }
+
+
+        Hud hud = BetterHud.getAPI().getHud(hudId);
+        if (hud.getElement(elementId).isEmpty()) {
+            sender.sendMessage(BetterHud.getMessage("unknown-element"));
+            return;
+        }
+
+        Element element = hud.getElement(elementId).get();
+
+        element.resetAllValues();
+
+        sender.sendMessage(BetterHud.getMessage("resetvalue-all")
+                .replace("{element}", element.getName()));
+
+    }
+    @Subcommand("resetValue")
+    @CommandPermission("betterhud.command.resetvalue")
+    public void onResetValue(final CommandSender sender, final String hudId, final String elementId, final Player target) {
+        if (!BetterHud.getAPI().hudExists(hudId)) {
+            sender.sendMessage(BetterHud.getMessage("unknown-hud"));
+            return;
+        }
+
+
+        Hud hud = BetterHud.getAPI().getHud(hudId);
+        if (hud.getElement(elementId).isEmpty()) {
+            sender.sendMessage(BetterHud.getMessage("unknown-element"));
+            return;
+        }
+
+        Element element = hud.getElement(elementId).get();
+
+
+        element.resetValue(target);
+
+        sender.sendMessage(BetterHud.getMessage("resetvalue-player")
+                .replace("{element}", element.getName())
+                .replace("{player}", target.getName()));
+    }
+
+    @Subcommand("show-element-all")
+    @CommandPermission("betterhud.command.showelement.all")
+    public void onShowElementAll(final CommandSender sender, final String hudId, final String elementId) {
+        if (!BetterHud.getAPI().hudExists(hudId)) {
+            sender.sendMessage(BetterHud.getMessage("unknown-hud"));
+            return;
+        }
+
+
+        Hud hud = BetterHud.getAPI().getHud(hudId);
+        if (hud.getElement(elementId).isEmpty()) {
+            sender.sendMessage(BetterHud.getMessage("unknown-element"));
+            return;
+        }
+
+        Element element = hud.getElement(elementId).get();
+
+        for (Player target : Bukkit.getOnlinePlayers()) {
+            element.setVisibility(target, true);
+        }
+
+        sender.sendMessage(BetterHud.getMessage("showelement-all")
+                .replace("{element}", element.getName()));
+    }
+
+    @Subcommand("show-element")
+    @CommandPermission("betterhud.command.showelement")
+    public void onShowElement(final CommandSender sender, final String hudId, final String elementId, final Player target) {
+        if (!BetterHud.getAPI().hudExists(hudId)) {
+            sender.sendMessage(BetterHud.getMessage("unknown-hud"));
+            return;
+        }
+
+
+        Hud hud = BetterHud.getAPI().getHud(hudId);
+        if (hud.getElement(elementId).isEmpty()) {
+            sender.sendMessage(BetterHud.getMessage("unknown-element"));
+            return;
+        }
+
+        Element element = hud.getElement(elementId).get();
+        element.setVisibility(target, false);
+
+        sender.sendMessage(BetterHud.getMessage("showelement-player")
+                .replace("{element}", element.getName())
+                .replace("{player}", target.getName()));
 
     }
 
-    public void onShowElement() {
-
-    }
-
-    @Subcommand("hideElementAll")
+    @Subcommand("hide-element-all")
     @CommandPermission("betterhud.command.hideelement.all")
     public void onHideElementsAll(final CommandSender sender, final String hudId, final String elementId) {
-        if(BetterHud.getAPI().hudExists(hudId)) {
-
-            Hud hud = BetterHud.getAPI().getHud(hudId);
-            if (hud.getElement(elementId).isPresent()) {
-
-                Element element = hud.getElement(elementId).get();
-
-                for(Player target : Bukkit.getOnlinePlayers()) {
-                    element.setVisibility(target, false);
-                }
-
-                sender.sendMessage(BetterHud.getMessage("hideelement-all")
-                        .replace("{element}", element.getName()));
-
-            } else {
-                sender.sendMessage(BetterHud.getMessage("unknown-element"));
-            }
+        if (!BetterHud.getAPI().hudExists(hudId)) {
+            sender.sendMessage(BetterHud.getMessage("unknown-hud"));
+            return;
         }
+
+
+        Hud hud = BetterHud.getAPI().getHud(hudId);
+        if (hud.getElement(elementId).isEmpty()) {
+            sender.sendMessage(BetterHud.getMessage("unknown-element"));
+            return;
+        }
+
+
+        Element element = hud.getElement(elementId).get();
+
+        for (Player target : Bukkit.getOnlinePlayers()) {
+            element.setVisibility(target, false);
+        }
+
+        sender.sendMessage(BetterHud.getMessage("hideelement-all")
+                .replace("{element}", element.getName()));
+
+
     }
+
     @Subcommand("hideElement")
     @CommandPermission("betterhud.command.hideelement")
-    public void onHideElement(final CommandSender sender, final Player target, final String hudId, final String elementId) {
-        //VALID PLAYER
-
-        if(BetterHud.getAPI().hudExists(hudId)) {
-
-            Hud hud = BetterHud.getAPI().getHud(hudId);
-            if (hud.getElement(elementId).isPresent()) {
-
-                Element element = hud.getElement(elementId).get();
-
-                element.setVisibility(target, false);
-
-                sender.sendMessage(BetterHud.getMessage("hideelement-player")
-                        .replace("{element}", element.getName())
-                        .replace("{player}", target.getName()));
-
-            } else {
-                sender.sendMessage(BetterHud.getMessage("unknown-element"));
-            }
+    public void onHideElement(final CommandSender sender, final String hudId, final String elementId, final Player target) {
+        if (!BetterHud.getAPI().hudExists(hudId)) {
+            sender.sendMessage(BetterHud.getMessage("unknown-hud"));
+            return;
         }
+
+
+        Hud hud = BetterHud.getAPI().getHud(hudId);
+        if (hud.getElement(elementId).isEmpty()) {
+            sender.sendMessage(BetterHud.getMessage("unknown-element"));
+            return;
+        }
+
+
+        Element element = hud.getElement(elementId).get();
+
+        element.setVisibility(target, false);
+
+        sender.sendMessage(BetterHud.getMessage("hideelement-player")
+                .replace("{element}", element.getName())
+                .replace("{player}", target.getName()));
+
+
     }
 
     @Subcommand("setX")
@@ -248,7 +346,7 @@ public class BetterHudCommand extends BaseCommand {
 
 
         Hud hud = BetterHud.getAPI().getHud(hudId);
-        if (!hud.getElement(elementId).isPresent()) {
+        if (hud.getElement(elementId).isEmpty()) {
             sender.sendMessage(BetterHud.getMessage("unknown-element"));
             return;
         }
