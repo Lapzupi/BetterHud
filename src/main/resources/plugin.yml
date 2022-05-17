@@ -5,10 +5,4 @@ api-version: 1.18
 depend: [ItemsAdder]
 authors: [ApiGames]
 description: ${project.description}
-commands:
-  bh:
-    description: Main command
-    usage: /bh
-  betterhud:
-    description: Main command
-    usage: /betterhud
+
