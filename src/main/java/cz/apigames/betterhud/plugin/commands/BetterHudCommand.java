@@ -4,6 +4,7 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Default;
+import co.aikar.commands.annotation.Single;
 import co.aikar.commands.annotation.Subcommand;
 import cz.apigames.betterhud.BetterHud;
 import cz.apigames.betterhud.api.BetterHudAPI;
@@ -166,21 +167,82 @@ public class BetterHudCommand extends BaseCommand {
     }
 
 
+    @Subcommand("show")
     public void onShow() {
 
     }
 
+    @Subcommand("hide")
     public void onHide() {
 
     }
 
+    @Subcommand("setvalue")
+    public void onSetValue(final CommandSender sender,final Player target, @Single final String hudId,@Single final String elementId, final String value) {
+        if (!BetterHud.getAPI().hudExists(hudId)) {
+            sender.sendMessage(BetterHud.getMessage("unknown-hud"));
+            return;
+        }
 
-    public void onSetValue() {
 
+        Hud hud = BetterHud.getAPI().getHud(hudId);
+        if (hud.getElement(elementId).isEmpty()) {
+            sender.sendMessage(BetterHud.getMessage("unknown-element"));
+            return;
+        }
+
+        Element element = hud.getElement(elementId).get();
+
+        element.setValue(target, value);
+
+        sender.sendMessage(BetterHud.getMessage("setvalue-player")
+                .replace("{element}", element.getName())
+                .replace("{player}", target.getName()));
+    }
+    @Subcommand("setvalueall")
+    public void onSetValueAll(final CommandSender sender, @Single final String hudId,@Single final String elementId, final String value) {
+        if (!BetterHud.getAPI().hudExists(hudId)) {
+            sender.sendMessage(BetterHud.getMessage("unknown-hud"));
+            return;
+        }
+
+
+        Hud hud = BetterHud.getAPI().getHud(hudId);
+        if (hud.getElement(elementId).isEmpty()) {
+            sender.sendMessage(BetterHud.getMessage("unknown-element"));
+            return;
+        }
+
+        Element element = hud.getElement(elementId).get();
+
+        element.resetAllValues();
+        element.setValue(value);
+
+        sender.sendMessage(BetterHud.getMessage("setvalue-all")
+                .replace("{element}", element.getName()));
     }
 
-    public void onGetValue() {
+    @Subcommand("getvalue")
+    @CommandPermission("betterhud.command.getvalue")
+    public void onGetValue(final CommandSender sender, final String hudId, final String elementId, final Player target) {
+        if (!BetterHud.getAPI().hudExists(hudId)) {
+            sender.sendMessage(BetterHud.getMessage("unknown-hud"));
+            return;
+        }
 
+
+        Hud hud = BetterHud.getAPI().getHud(hudId);
+        if (hud.getElement(elementId).isEmpty()) {
+            sender.sendMessage(BetterHud.getMessage("unknown-element"));
+            return;
+        }
+
+        Element element = hud.getElement(elementId).get();
+
+        sender.sendMessage(BetterHud.getMessage("getvalue-player")
+                .replace("{element}", element.getName())
+                .replace("{player}", target.getName())
+                .replace("{value}", element.getValue(target)));
     }
 
 
