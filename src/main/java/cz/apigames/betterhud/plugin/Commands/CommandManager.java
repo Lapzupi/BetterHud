@@ -143,67 +143,6 @@ public class CommandManager implements CommandExecutor {
 
                 }
 
-                //HIDE
-                else if(args[0].equalsIgnoreCase("hide")) {
-
-                    if(sender.hasPermission("betterhud.command.hide")) {
-
-                        if(args.length > 1) {
-
-                            if(args.length > 2) {
-
-                                if(args[1].equalsIgnoreCase("all")) {
-                                    //ALL
-
-                                    if(BetterHud.getAPI().hudExists(args[2])) {
-
-                                        for(Player target : Bukkit.getOnlinePlayers()) {
-                                            BetterHud.getAPI().getHud(args[2]).hide(target);
-                                        }
-
-                                        sender.sendMessage(BetterHud.getMessage("hide-all")
-                                                .replace("{hudName}", args[2]));
-
-                                    } else {
-                                        sender.sendMessage(BetterHud.getMessage("unknown-hud"));
-                                    }
-
-                                } else {
-                                    //TARGET
-
-                                    Player target = Bukkit.getPlayerExact(args[1]);
-                                    if(target != null) {
-                                        //VALID PLAYER
-
-                                        if(BetterHud.getAPI().hudExists(args[2])) {
-
-                                            BetterHud.getAPI().getHud(args[2]).hide(target);
-
-                                            sender.sendMessage(BetterHud.getMessage("hide-player")
-                                                    .replace("{hudName}", args[2]).replace("{player}", target.getName()));
-
-                                        } else {
-                                            sender.sendMessage(BetterHud.getMessage("unknown-hud"));
-                                        }
-
-                                    } else {
-                                        sender.sendMessage(BetterHud.getMessage("unknown-player"));
-                                    }
-                                }
-
-                            } else {
-                                sender.sendMessage(BetterHud.getMessage("no-hud"));
-                            }
-
-                        } else {
-                            sender.sendMessage(BetterHud.getMessage("no-player"));
-                        }
-
-                    } else {
-                        sender.sendMessage(BetterHud.getMessage("no-permission"));
-                    }
-
-                }
             }
 
         }

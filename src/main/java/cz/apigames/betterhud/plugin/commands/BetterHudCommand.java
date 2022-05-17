@@ -173,8 +173,31 @@ public class BetterHudCommand extends BaseCommand {
     }
 
     @Subcommand("hide")
-    public void onHide() {
+    public void onHide(final CommandSender sender, @Single final String hudId, final Player target) {
+        if (!BetterHud.getAPI().hudExists(hudId)) {
+            sender.sendMessage(BetterHud.getMessage("unknown-hud"));
+            return;
+        }
 
+        BetterHud.getAPI().getHud(hudId).hide(target);
+
+        sender.sendMessage(BetterHud.getMessage("hide-player")
+                .replace("{hudName}", hudId).replace("{player}", target.getName()));
+    }
+
+    @Subcommand("hide-all")
+    public void onHideAll(final CommandSender sender, @Single final String hudId){
+        if (!BetterHud.getAPI().hudExists(hudId)) {
+            sender.sendMessage(BetterHud.getMessage("unknown-hud"));
+            return;
+        }
+
+        for(Player target : Bukkit.getOnlinePlayers()) {
+            BetterHud.getAPI().getHud(hudId).hide(target);
+        }
+
+        sender.sendMessage(BetterHud.getMessage("hide-all")
+                .replace("{hudName}", hudId);
     }
 
     @Subcommand("setvalue")
