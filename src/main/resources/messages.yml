@@ -12,7 +12,7 @@ messages:
   no-hud: " &8» &cYou must specify a hud name!"
   no-display: " &8» &cYou must specify a display type!"
   no-element: " &8» &cYou must specify an element name!"
-  no-value: " &8» &cYou must specify a valid alue!"
+  no-value: " &8» &cYou must specify a valid value!"
 
   unknown-hud: " &8» &cThis hud doesn't exist!"
   unknown-player: " &8» &cThis player is offline or doesn't exist!"
