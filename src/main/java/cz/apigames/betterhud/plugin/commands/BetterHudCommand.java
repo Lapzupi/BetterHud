@@ -14,7 +14,6 @@ import cz.apigames.betterhud.api.displays.Display;
 import cz.apigames.betterhud.api.displays.DisplayType;
 import cz.apigames.betterhud.api.elements.Element;
 import cz.apigames.betterhud.api.utils.MessageUtils;
-import cz.apigames.betterhud.api.utils.ToggleCommand;
 import cz.apigames.betterhud.plugin.utils.ConfigManager;
 import cz.apigames.betterhud.plugin.utils.FileUtils;
 import cz.apigames.betterhud.plugin.utils.JsonMessage;

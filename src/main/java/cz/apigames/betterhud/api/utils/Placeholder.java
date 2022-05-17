@@ -18,15 +18,16 @@ public class Placeholder {
 
     private String replacePlaceholder(String message) {
 
-        if(placeholder == null || value == null) {
+        if (placeholder == null || value == null) {
             return message;
         }
 
         return message.replace(placeholder, value);
     }
 
-    public static String replacePlaceholders(List<Placeholder> placeholderList, String message) {
-        for(Placeholder placeholder : placeholderList) {
+    @Contract(pure = true)
+    public static String replacePlaceholders(@NotNull List<Placeholder> placeholderList, String message) {
+        for (Placeholder placeholder : placeholderList) {
             message = placeholder.replacePlaceholder(message);
         }
         return message;
@@ -34,40 +35,40 @@ public class Placeholder {
 
     @Contract("_, _ -> param2")
     public static @NotNull List<String> replacePlaceholders(List<Placeholder> placeholderList, List<String> message) {
-
         List<String> copy = new ArrayList<>(message);
         message.clear();
+        if (placeholderList == null || placeholderList.isEmpty())
+            return message;
 
-        if(placeholderList != null) {
 
-            for (int i=0;i<copy.size();i++) {
+        for (int i = 0; i < copy.size(); i++) {
 
-                message.add(copy.get(i));
+            message.add(copy.get(i));
 
-                for (Placeholder placeholder : placeholderList) {
+            for (Placeholder placeholder : placeholderList) {
 
-                    if(copy.get(i).contains(placeholder.placeholder)) {
-                        String replaced = placeholder.replacePlaceholder(copy.get(i));
+                if (copy.get(i).contains(placeholder.placeholder)) {
+                    String replaced = placeholder.replacePlaceholder(copy.get(i));
 
-                        if (replaced.contains("\n")) {
+                    if (replaced.contains("\n")) {
 
-                            String[] split = replaced.split("\n");
+                        String[] split = replaced.split("\n");
 
-                            message.set(i, split[0]);
+                        message.set(i, split[0]);
 
-                            for (int i2=1;i2<split.length;i2++) {
-                                message.add(placeholder.replacePlaceholder(split[i2]));
-                            }
-
-                        } else {
-                            message.set(i, replaced);
+                        for (int i2 = 1; i2 < split.length; i2++) {
+                            message.add(placeholder.replacePlaceholder(split[i2]));
                         }
+
+                    } else {
+                        message.set(i, replaced);
                     }
-
                 }
-            }
 
+            }
         }
+
+
         return message;
     }
 

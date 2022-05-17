@@ -6,8 +6,8 @@ import cz.apigames.betterhud.api.Hud;
 import cz.apigames.betterhud.api.displays.DisplayType;
 import cz.apigames.betterhud.api.elements.Element;
 import cz.apigames.betterhud.api.utils.MessageUtils;
-import cz.apigames.betterhud.api.utils.ToggleCommand;
 import cz.apigames.betterhud.plugin.commands.BetterHudCommand;
+import cz.apigames.betterhud.plugin.commands.ToggleCommand;
 import cz.apigames.betterhud.plugin.utils.ConfigManager;
 import cz.apigames.betterhud.plugin.utils.Exceptions;
 import cz.apigames.betterhud.plugin.utils.FileUtils;
@@ -138,6 +138,7 @@ public final class BetterHud extends JavaPlugin {
             paperCommandManager.getCommandCompletions().registerCompletion("display-types", c -> List.of(DisplayType.ACTIONBAR.name(),DisplayType.ACTIONBAR.name(),DisplayType.CHAT.name()));
             paperCommandManager.enableUnstableAPI("brigadier");
             paperCommandManager.registerCommand(new BetterHudCommand());
+            paperCommandManager.registerCommand(new ToggleCommand());
         }
 
         sendMessageToConsole("&aPlugin was successfully loaded! Version: &2"+getVersion());
@@ -146,7 +147,6 @@ public final class BetterHud extends JavaPlugin {
     @Override
     public void onDisable() {
 
-        ToggleCommand.unregisterCommands();
         api.unload();
 
         sendMessageToConsole("&cPlugin was successfully disabled! Version: &4"+getVersion());

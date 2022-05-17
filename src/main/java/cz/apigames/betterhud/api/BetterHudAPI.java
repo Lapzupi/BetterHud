@@ -5,6 +5,7 @@ import cz.apigames.betterhud.api.displays.DisplayType;
 import cz.apigames.betterhud.api.elements.*;
 import cz.apigames.betterhud.api.utils.*;
 import cz.apigames.betterhud.api.utils.listeners.ListenerRegister;
+import cz.apigames.betterhud.plugin.commands.ToggleCommand;
 import dev.lone.itemsadder.api.FontImages.FontImageWrapper;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -30,7 +31,7 @@ public class BetterHudAPI {
 
     protected static HashMap<String, Hud> hudMap = new HashMap<>();
 
-    protected static File FontImagesDirectory;
+    protected static File fontImagesDirectory;
 
     protected static Map<Player, List<Placeholder>> placeholders = new HashMap<>();
 
@@ -329,7 +330,6 @@ public class BetterHudAPI {
 
 
         }
-        ToggleCommand.registerCommands();
         return violations;
     }
 
@@ -407,7 +407,7 @@ public class BetterHudAPI {
      */
     public Future<Boolean> generateFontImageFiles(File charactersFile, File directory) {
 
-        FontImagesDirectory = directory;
+        fontImagesDirectory = directory;
         CompletableFuture<Boolean> success;
 
         //USE OF DAEMON ASYNC THREAD
@@ -596,7 +596,7 @@ public class BetterHudAPI {
      * @return the directory where are stored all namespace configuration files
      */
     public static File getFontImagesDirectory() {
-        return FontImagesDirectory;
+        return fontImagesDirectory;
     }
 
     private static void checkHexSupport() {

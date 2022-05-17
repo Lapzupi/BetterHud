@@ -16,15 +16,15 @@ public class ConfigManager {
     };
 
     public static void loadConfig(String configName) {
-        File ConfigFile = new File(plugin.getDataFolder(), configName);
-        if (!ConfigFile.exists()) {
+        File configFile = new File(plugin.getDataFolder(), configName);
+        if (!configFile.exists()) {
             plugin.saveResource(configName, false);
             BetterHud.sendMessageToConsole("&aFile &2" + configName + " &ahas been created!");
-            configs.put(configName, YamlConfiguration.loadConfiguration(ConfigFile));
+            configs.put(configName, YamlConfiguration.loadConfiguration(configFile));
             return;
         }
 
-        configs.put(configName, YamlConfiguration.loadConfiguration(ConfigFile));
+        configs.put(configName, YamlConfiguration.loadConfiguration(configFile));
 
     }
 
