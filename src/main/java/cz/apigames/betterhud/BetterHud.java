@@ -15,6 +15,7 @@ import cz.apigames.betterhud.plugin.utils.Logger;
 import cz.apigames.betterhud.plugin.utils.TextureExtractor;
 import cz.apigames.betterhud.plugin.utils.UpdateChecker;
 import dev.lone.itemsadder.api.FontImages.FontImageWrapper;
+import dev.lone.itemsadder.api.ItemsAdder;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -182,7 +183,6 @@ public final class BetterHud extends JavaPlugin {
     }
 
     public static boolean isIASelfHosted() {
-        //todo, maybe we can check this through the api?
         File itemsAdderFile = new File("plugins/ItemsAdder", "config.yml");
         YamlConfiguration itemsAdderConfig = YamlConfiguration.loadConfiguration(itemsAdderFile);
         return itemsAdderConfig.getConfigurationSection("resource-pack").getConfigurationSection("self-host").getBoolean("enabled");
@@ -227,13 +227,11 @@ public final class BetterHud extends JavaPlugin {
     }
 
     public static @NotNull String getMessage(String path) {
-
         if(ConfigManager.getConfig("messages.yml").isSet("messages."+path)) {
             return MessageUtils.colorize(ConfigManager.getConfig("messages.yml").getString("messages."+path));
-        } else {
-            return MessageUtils.colorize(" &eBetterHud &8» &cUnknown message &4'" + path + "'&c, check your messages.yml");
         }
 
+        return MessageUtils.colorize(" &eBetterHud &8» &cUnknown message &4'" + path + "'&c, check your messages.yml");
     }
 
 }
